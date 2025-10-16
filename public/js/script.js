@@ -16,11 +16,11 @@ function showDashboard(userRole) {
     document.getElementById("student-dashboard").style.display = "block";
     document.getElementById("tutor-dashboard").style.display = "none";
     
-    // 👇 SOLUCIÓN CLAVE: Añadir un pequeño retraso
-    // Le da al navegador tiempo para procesar el Set-Cookie antes de la siguiente petición
+    // **CORRECCIÓN CLAVE**
+    // Esperamos 100ms antes de llamar a la ruta protegida.
     setTimeout(() => {
         fetchAndDisplayTutors();
-    }, 50); // 50 milisegundos es suficiente, pero puedes probar con 100 si falla
+    }, 200); 
     
   } else if (userRole === "tutor") {
     document.getElementById("student-dashboard").style.display = "none";
