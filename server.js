@@ -1,13 +1,15 @@
-import express from "express"
-import "dotenv/config"
-import cors from "cors"
-import cookieParser from 'cookie-parser';
+// developeric/codint_education/Codint_Education-backend/server.js
+import express from "express";
+import "dotenv/config";
+import cors from "cors";
+import cookieParser from "cookie-parser";
 
-//
-import { dbConnection } from "./src/config/database.js";
-//
+// CAMBIO A IMPORTACIÓN CON NOMBRE:
+import { dbConnection } from "./src/config/database.js"; // Antes era 'import dbConnection from ...' o similar
+import router from "./src/routes/auth.routes.js";
+// 
 // Inicialización
-const PORT = process.env.PORT;
+const PORT = process.env.PORT; //
 const app = express();
 dbConnection(); // Conectar a la base de datos
 
@@ -17,11 +19,9 @@ app.use(express.json()); // Parsea el body de las peticiones a JSON
 app.use(cookieParser()); // Parsea las cookies
 
 // Rutas
-// app.use('/api/auth', require('./routes/auth.routes'));
-// app.use('/api/users', require('./routes/users.routes'));
-// Agrega más rutas aquí (tutores, sesiones, etc.)
+app.use("/api/auth", router);
 
 // Escuchar en el puerto
 app.listen(PORT, () => {
-    console.log(`http://localhost:${PORT}`);
+  console.log(`http://localhost:${PORT}`);
 });

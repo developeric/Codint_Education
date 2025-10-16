@@ -1,8 +1,11 @@
+// developeric/codint_education/Codint_Education-backend/src/config/database.js
+
 import mongoose from "mongoose";
 
+// Cambio: Ahora exportamos con nombre (export const)
 export const dbConnection = async () => {
     try {
-        await mongoose.connect(process.env.MONGO_URI);
+        await mongoose.connect(process.env.MONGO_URI); //
         console.log('Base de datos online');
     } catch (error) {
         console.log(error);

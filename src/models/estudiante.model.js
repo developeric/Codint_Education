@@ -67,4 +67,4 @@ const estudianteSchema = new Schema(
 );
 
 // 5. Exportación del Modelo
-export const Estudiante = model("Estudiante", estudianteSchema);
+export const Estudiante = model("Estudiante", estudianteSchema); // Correcto
