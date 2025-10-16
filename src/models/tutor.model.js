@@ -69,8 +69,8 @@ const tutorSchema = new Schema(
     hourlyRate: {
       type: Number,
       default: 0,
-      min: 0,
-      max: 1000, // Puedes ajustar el máximo según tu modelo de negocio
+      min: 0, 
+      max: 1000,// Puedes ajustar el máximo según tu modelo de negocio
     },
 
     averageRating: {
