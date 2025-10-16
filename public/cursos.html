@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis Cursos - Codint Education</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #3a0ca3;
+            --accent-color: #4cc9f0;
+            --success-color: #2ecc71;
+            --warning-color: #f39c12;
+            --danger-color: #e74c3c;
+            --light-color: #f8f9fa;
+            --dark-color: #212529;
+            --gray-color: #6c757d;
+            --border-radius: 10px;
+            --box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            color: var(--dark-color);
+            line-height: 1.6;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 250px;
+            background: linear-gradient(180deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 20px;
+            transition: var(--transition);
+            z-index: 1000;
+            box-shadow: var(--box-shadow);
+        }
+
+        .sidebar-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .sidebar-header .logo {
+            font-size: 24px;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .sidebar-menu {
+            margin-top: 30px;
+        }
+
+        .sidebar-menu ul {
+            list-style: none;
+        }
+
+        .sidebar-menu li {
+            margin-bottom: 15px;
+        }
+
+        .sidebar-menu a {
+            display: flex;
+            align-items: center;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            padding: 10px;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+        }
+
+        .sidebar-menu a:hover, .sidebar-menu a.active {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .sidebar-menu i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+
+        .user-profile {
+            position: absolute;
+            bottom: 20px;
+            width: calc(100% - 40px);
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: var(--border-radius);
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--accent-color);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            margin-right: 10px;
+        }
+
+        .user-info {
+            flex: 1;
+        }
+
+        .user-info h4 {
+            font-size: 14px;
+            margin: 0;
+        }
+
+        .user-info p {
+            font-size: 12px;
+            margin: 0;
+            opacity: 0.7;
+        }
+
+        .logout-btn {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+            opacity: 0.7;
+            transition: var(--transition);
+        }
+
+        .logout-btn:hover {
+            opacity: 1;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 250px;
+            padding: 30px;
+            transition: var(--transition);
+        }
+
+        .page-header {
+            margin-bottom: 30px;
+        }
+
+        .page-header h1 {
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--secondary-color);
+        }
+
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            color: var(--gray-color);
+        }
+
+        .breadcrumb i {
+            margin: 0 8px;
+            font-size: 12px;
+        }
+
+        /* Card Styles */
+        .card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .card-header {
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-header h3 {
+            margin: 0;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        /* Course Styles */
+        .course-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .course-card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .course-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .course-image {
+            height: 160px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .course-content {
+            padding: 20px;
+        }
+
+        .course-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--secondary-color);
+        }
+
+        .course-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            font-size: 14px;
+            color: var(--gray-color);
+        }
+
+        .course-progress {
+            margin-bottom: 15px;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background-color: #eee;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background-color: var(--primary-color);
+        }
+
+        .course-actions {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .btn {
+            padding: 8px 15px;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            text-align: center;
+            font-size: 14px;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        /* Search and Filter */
+        .search-filter {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .search-box {
+            flex: 1;
+            max-width: 300px;
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 10px 15px;
+            padding-right: 40px;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            font-size: 14px;
+        }
+
+        .search-box i {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray-color);
+        }
+
+        .filter-dropdown {
+            position: relative;
+            margin-left: 15px;
+        }
+
+        .filter-dropdown select {
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            font-size: 14px;
+            appearance: none;
+            background-color: white;
+            min-width: 150px;
+            cursor: pointer;
+        }
+
+        .filter-dropdown i {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray-color);
+            pointer-events: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .sidebar {
+                width: 80px;
+                padding: 20px 10px;
+            }
+
+            .sidebar-header .logo {
+                display: none;
+            }
+
+            .sidebar-menu a span {
+                display: none;
+            }
+
+            .sidebar-menu i {
+                margin-right: 0;
+                font-size: 20px;
+            }
+
+            .user-profile {
+                padding: 10px;
+            }
+
+            .user-info {
+                display: none;
+            }
+
+            .main-content {
+                margin-left: 80px;
+            }
+
+            .course-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .search-filter {
+                flex-direction: column;
+            }
+
+            .search-box {
+                max-width: 100%;
+                margin-bottom: 15px;
+            }
+
+            .filter-dropdown {
+                margin-left: 0;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease forwards;
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">Codint Education</div>
+        </div>
+
+        <div class="sidebar-menu">
+            <ul>
+                <li><a href="dashboard.html"><i class="fas fa-home"></i> <span>Dashboard</span></a></li>
+                <li><a href="cursos.html" class="active"><i class="fas fa-book"></i> <span>Mis Cursos</span></a></li>
+                <li><a href="mensajes.html"><i class="fas fa-comment"></i> <span>Mensajes</span></a></li>
+                <li><a href="configuracion.html"><i class="fas fa-cog"></i> <span>Configuración</span></a></li>
+            </ul>
+        </div>
+
+        <div class="user-profile">
+            <div class="user-avatar" id="sidebar-user-avatar"></div>
+            <div class="user-info">
+                <h4 id="sidebar-user-name">Cargando...</h4>
+                <p id="sidebar-user-role"></p>
+            </div>
+            <button class="logout-btn" id="logout-button" title="Cerrar sesión">
+                <i class="fas fa-sign-out-alt"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="page-header animate-fade-in">
+            <h1>Mis Cursos</h1>
+            <div class="breadcrumb">
+                <span>Inicio</span>
+                <i class="fas fa-chevron-right"></i>
+                <span>Mis Cursos</span>
+            </div>
+        </div>
+
+        <div class="search-filter animate-fade-in" style="animation-delay: 0.1s;">
+            <div class="search-box">
+                <input type="text" placeholder="Buscar cursos..." id="course-search">
+                <i class="fas fa-search"></i>
+            </div>
+            <div class="filter-dropdown">
+                <select id="course-filter">
+                    <option value="all">Todos los cursos</option>
+                    <option value="in-progress">En progreso</option>
+                    <option value="completed">Completados</option>
+                    <option value="not-started">No iniciados</option>
+                </select>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+        </div>
+
+        <div class="course-grid animate-fade-in" style="animation-delay: 0.2s;" id="course-container">
+            <!-- Los cursos se cargarán dinámicamente aquí -->
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Cargar datos del usuario desde localStorage
+            let userData;
+            try {
+                userData = JSON.parse(localStorage.getItem('userData'));
+                console.log("Datos del usuario cargados:", userData);
+            } catch (error) {
+                console.error("Error al parsear datos del usuario:", error);
+                window.location.href = "index.html";
+                return;
+            }
+            
+            if (!userData) {
+                // Si no hay datos de usuario, redirigir al login
+                console.log("No hay datos de usuario, redirigiendo...");
+                window.location.href = "index.html";
+                return;
+            }
+            
+            // Mostrar información del usuario en el sidebar
+            displayUserInfo(userData);
+            
+            // Cargar cursos
+            loadCourses();
+            
+            // Configurar eventos de búsqueda y filtrado
+            setupSearchAndFilter();
+            
+            // Configurar botón de logout
+            document.getElementById('logout-button').addEventListener('click', function() {
+                localStorage.removeItem('userData');
+                window.location.href = "index.html";
+            });
+        });
+        
+        function displayUserInfo(userData) {
+            // Mostrar nombre de usuario y rol en el sidebar
+            document.getElementById('sidebar-user-name').textContent = userData.username || 'Usuario';
+            document.getElementById('sidebar-user-role').textContent = userData.role === 'student' ? 'Estudiante' : 'Tutor';
+            
+            // Mostrar iniciales en el avatar
+            const userAvatar = document.getElementById('sidebar-user-avatar');
+            if (userData.profile && userData.profile.firstName) {
+                const initials = `${userData.profile.firstName.charAt(0)}${userData.profile.lastName ? userData.profile.lastName.charAt(0) : ''}`;
+                userAvatar.textContent = initials.toUpperCase();
+            } else {
+                userAvatar.textContent = userData.username.charAt(0).toUpperCase();
+            }
+        }
+        
+        function loadCourses() {
+            // Cargar cursos guardados desde localStorage o usar cursos de ejemplo
+            let courses = JSON.parse(localStorage.getItem('userCourses') || '[]');
+            
+            // Si no hay cursos guardados, usar cursos de ejemplo
+            if (courses.length === 0) {
+                courses = [
+                    {
+                        id: 1,
+                        title: 'Introducción a la Programación',
+                        tutor: 'María González',
+                        duration: '8 semanas',
+                        progress: 75,
+                        image: 'https://via.placeholder.com/300x160/4361ee/ffffff?text=Programación',
+                        status: 'in-progress'
+                    },
+                    {
+                        id: 2,
+                        title: 'Matemáticas Avanzadas',
+                        tutor: 'Carlos Rodríguez',
+                        duration: '12 semanas',
+                        progress: 100,
+                        image: 'https://via.placeholder.com/300x160/3a0ca3/ffffff?text=Matemáticas',
+                        status: 'completed'
+                    },
+                    {
+                        id: 3,
+                        title: 'Física Cuántica',
+                        tutor: 'Ana Martínez',
+                        duration: '10 semanas',
+                        progress: 0,
+                        image: 'https://via.placeholder.com/300x160/4cc9f0/ffffff?text=Física',
+                        status: 'not-started'
+                    },
+                    {
+                        id: 4,
+                        title: 'Desarrollo Web Frontend',
+                        tutor: 'Pedro Sánchez',
+                        duration: '6 semanas',
+                        progress: 30,
+                        image: 'https://via.placeholder.com/300x160/f72585/ffffff?text=Web+Frontend',
+                        status: 'in-progress'
+                    }
+                ];
+                
+                // Guardar cursos de ejemplo en localStorage
+                localStorage.setItem('userCourses', JSON.stringify(courses));
+            }
+            
+            // Mostrar cursos en la interfaz
+            displayCourses(courses);
+        }
+        
+        function displayCourses(courses) {
+            const courseContainer = document.getElementById('course-container');
+            courseContainer.innerHTML = '';
+            
+            if (courses.length === 0) {
+                courseContainer.innerHTML = '<p class="text-center">No se encontraron cursos.</p>';
+                return;
+            }
+            
+            courses.forEach(course => {
+                const courseCard = document.createElement('div');
+                courseCard.className = 'course-card';
+                courseCard.dataset.status = course.status;
+                
+                courseCard.innerHTML = `
+                    <div class="course-image" style="background-image: url('${course.image}')"></div>
+                    <div class="course-content">
+                        <h3 class="course-title">${course.title}</h3>
+                        <div class="course-info">
+                            <span><i class="fas fa-user-tie"></i> ${course.tutor}</span>
+                            <span><i class="fas fa-clock"></i> ${course.duration}</span>
+                        </div>
+                        <div class="course-progress">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: ${course.progress}%"></div>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; margin-top: 5px;">
+                                <small>${getStatusText(course.status)}</small>
+                                <small>${course.progress}% completado</small>
+                            </div>
+                        </div>
+                        <div class="course-actions">
+                            <a href="#" class="btn btn-primary">Continuar</a>
+                            <a href="#" class="btn btn-outline">Detalles</a>
+                        </div>
+                    </div>
+                `;
+                
+                courseContainer.appendChild(courseCard);
+            });
+        }
+        
+        function getStatusText(status) {
+            switch(status) {
+                case 'in-progress': return 'En progreso';
+                case 'completed': return 'Completado';
+                case 'not-started': return 'No iniciado';
+                default: return 'Desconocido';
+            }
+        }
+        
+        function setupSearchAndFilter() {
+            const searchInput = document.getElementById('course-search');
+            const filterSelect = document.getElementById('course-filter');
+            
+            // Función para filtrar cursos
+            function filterCourses() {
+                const searchTerm = searchInput.value.toLowerCase();
+                const filterValue = filterSelect.value;
+                
+                const courses = JSON.parse(localStorage.getItem('userCourses') || '[]');
+                
+                const filteredCourses = courses.filter(course => {
+                    const matchesSearch = course.title.toLowerCase().includes(searchTerm) || 
+                                         course.tutor.toLowerCase().includes(searchTerm);
+                    
+                    const matchesFilter = filterValue === 'all' || course.status === filterValue;
+                    
+                    return matchesSearch && matchesFilter;
+                });
+                
+                displayCourses(filteredCourses);
+            }
+            
+            // Configurar eventos
+            searchInput.addEventListener('input', filterCourses);
+            filterSelect.addEventListener('change', filterCourses);
+        }
+    </script>
+</body>
+</html>

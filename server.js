@@ -21,7 +21,7 @@ dbConnection();
 
 // --- Middlewares Esenciales ---
 const corsOptions = {
-  origin: "http://127.0.0.1:5500", // URL exacta de tu frontend
+  origin: ["http://127.0.0.1:5500", "http://127.0.0.1:5501"], // URLs permitidas para el frontend
   credentials: true, // Permite que el navegador envíe cookies
 };
 app.use(cors(corsOptions));
