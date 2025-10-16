@@ -8,7 +8,8 @@
     "express-validator": "^7.2.1",
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.20.0",
-    "mongoose": "^8.19.1"
+    "mongoose": "^8.19.1",
+    "open": "^10.2.0"
   },
   "name": "codint",
   "version": "1.0.0",
@@ -17,7 +18,7 @@
   "type": "module",
   "scripts": {
     "dev": "node --watch server.js",
-    "start": "node server.js"
+    "start": "npm run dev & node start_app.js"
   },
   "repository": {
     "type": "git",
@@ -29,6 +30,5 @@
   "bugs": {
     "url": "https://github.com/developeric/Codint_Education/issues"
   },
-  "homepage": "https://github.com/developeric/Codint_Education#readme",
-  "devDependencies": {}
+  "homepage": "https://github.com/developeric/Codint_Education#readme"
 }

@@ -1,0 +1,8 @@
+/* Custom styles for Configuration page */
+.checkbox-group {
+    margin-bottom: 10px;
+}
+
+.checkbox-group input[type="checkbox"] {
+    margin-right: 8px;
+}

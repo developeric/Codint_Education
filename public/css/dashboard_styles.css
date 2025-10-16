@@ -1,0 +1,226 @@
+/* Dashboard Stats */
+.stats-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.stat-card {
+    background-color: white;
+    border-radius: var(--border-radius);
+    padding: 20px;
+    box-shadow: var(--box-shadow);
+    display: flex;
+    align-items: center;
+    transition: var(--transition);
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+}
+
+.stat-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    margin-right: 15px;
+}
+
+.stat-icon.blue {
+    background-color: rgba(67, 97, 238, 0.1);
+    color: var(--primary-color);
+}
+
+.stat-icon.purple {
+    background-color: rgba(58, 12, 163, 0.1);
+    color: var(--secondary-color);
+}
+
+.stat-icon.green {
+    background-color: rgba(46, 204, 113, 0.1);
+    color: var(--success-color);
+}
+
+.stat-icon.orange {
+    background-color: rgba(243, 156, 18, 0.1);
+    color: var(--warning-color);
+}
+
+.stat-info h3 {
+    font-size: 24px;
+    margin-bottom: 5px;
+}
+
+.stat-info p {
+    font-size: 14px;
+    color: var(--gray-color);
+    margin: 0;
+}
+
+/* Dashboard Content */
+.dashboard-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+}
+
+.class-item, .course-item, .message-item {
+    padding: 15px 0;
+    border-bottom: 1px solid #f0f0f0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.class-info, .course-info {
+    flex: 1;
+}
+.course-info .progress-bar {
+    margin-top: 5px;
+    height: 5px;
+    background-color: #eee;
+    border-radius: 2.5px;
+    overflow: hidden;
+}
+.progress {
+    height: 100%;
+    background-color: var(--primary-color);
+}
+.course-icon {
+    margin-right: 10px;
+    color: var(--primary-color);
+}
+
+/* Tutor List */
+.tutor-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.tutor-card {
+    background-color: white;
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: var(--transition);
+}
+
+.tutor-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.tutor-header {
+    padding: 20px;
+    background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+    color: white;
+    position: relative;
+}
+
+.tutor-avatar {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background-color: white;
+    color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    margin-bottom: 10px;
+    border: 3px solid white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.tutor-name {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.tutor-subjects {
+    font-size: 14px;
+    opacity: 0.8;
+}
+
+.tutor-body {
+    padding: 20px;
+}
+
+.tutor-bio {
+    margin-bottom: 15px;
+    font-size: 14px;
+    color: var(--dark-color);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+
+.tutor-rate {
+    font-weight: 600;
+    color: var(--primary-color);
+    font-size: 16px;
+    margin-bottom: 15px;
+}
+
+.tutor-action {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Calendar */
+.calendar {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.calendar th, .calendar td {
+    padding: 10px;
+    text-align: center;
+}
+
+.calendar th {
+    font-weight: 600;
+    color: var(--gray-color);
+}
+
+.calendar td {
+    color: var(--dark-color);
+}
+
+.calendar .today {
+    background-color: var(--primary-color);
+    color: white;
+    border-radius: 50%;
+}
+
+.calendar .has-event {
+    position: relative;
+}
+
+.calendar .has-event::after {
+    content: '';
+    position: absolute;
+    bottom: 2px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background-color: var(--accent-color);
+}
+
+/* Responsive overrides */
+@media (max-width: 768px) {
+    .dashboard-content {
+        grid-template-columns: 1fr;
+    }
+}
