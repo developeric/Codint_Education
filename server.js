@@ -2,7 +2,7 @@
 
 import express from "express";
 import cors from "cors";
-import dotenv from "dotenv";
+import "dotenv/config"
 import cookieParser from "cookie-parser";
 import { dbConnection } from "./src/config/database.js";
 
@@ -12,7 +12,7 @@ import tutorRoutes from "./src/routes/tutor.routes.js";
 import userRoutes from "./src/routes/user.routes.js";
 
 // Carga las variables de entorno (.env) lo antes posible
-dotenv.config();
+
 
 const app = express();
 
@@ -34,7 +34,7 @@ app.use("/api", tutorRoutes);
 app.use("/api", userRoutes);
 
 // --- Iniciar el servidor ---
-const PORT = process.env.PORT || 3005;
+const PORT = process.env.PORT
 app.listen(PORT, () => {
-  console.log(`✅ Servidor corriendo en el puerto ${PORT}`);
+  console.log(`✅ Servidor corriendo en http://localhost:${PORT}`);
 });
