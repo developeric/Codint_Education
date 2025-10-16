@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plataforma de Tutorías</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <div id="auth-container">
+            <div class="tabs">
+                <button class="tab-link active" onclick="openTab(event, 'login')">Iniciar Sesión</button>
+                <button class="tab-link" onclick="openTab(event, 'register')">Registrarse</button>
+            </div>
+
+            <div id="login" class="tab-content" style="display: block;">
+                <h2>Iniciar Sesión</h2>
+                <form id="login-form">
+                    <input type="text" id="login-username" placeholder="Nombre de usuario" required>
+                    <input type="password" id="login-password" placeholder="Contraseña" required>
+                    <div class="role-selector">
+                        <label><input type="radio" name="login-role" value="student" checked> Estudiante</label>
+                        <label><input type="radio" name="login-role" value="tutor"> Tutor</label>
+                    </div>
+                    <button type="submit">Entrar</button>
+                </form>
+            </div>
+
+            <div id="register" class="tab-content">
+                <h2>Registrarse</h2>
+                <form id="register-form">
+                    <input type="text" id="register-username" placeholder="Nombre de usuario" required>
+                    <input type="email" id="register-email" placeholder="Correo electrónico" required>
+                    <input type="password" id="register-password" placeholder="Contraseña" required>
+                    <input type="text" id="register-firstName" placeholder="Nombre" required>
+                    <input type="text" id="register-lastName" placeholder="Apellido" required>
+                    <div class="role-selector">
+                        <label><input type="radio" name="register-role" value="student" checked onchange="toggleTutorFields()"> Estudiante</label>
+                        <label><input type="radio" name="register-role" value="tutor" onchange="toggleTutorFields()"> Tutor</label>
+                    </div>
+                    <div id="tutor-fields" style="display: none;">
+                        <input type="text" id="register-subjects" placeholder="Materias (separadas por comas)">
+                        <input type="number" id="register-hourlyRate" placeholder="Tarifa por hora">
+                    </div>
+                    <button type="submit">Registrarse</button>
+                </form>
+            </div>
+            <p id="error-message" class="error-message"></p>
+        </div>
+
+<div id="dashboard" style="display: none;">
+    <h2 id="welcome-message"></h2>
+    
+    <div id="student-dashboard" style="display: none;">
+        <h3>Tutores Disponibles</h3>
+        <div id="tutor-list" class="tutor-list-container">
+            </div>
+    </div>
+
+    <div id="tutor-dashboard" style="display: none;">
+        <p>Este es tu panel de tutor. Próximamente podrás ver tus estudiantes y gestionar tus clases.</p>
+    </div>
+
+    <button id="logout-button">Cerrar Sesión</button>
+</div>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

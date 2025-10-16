@@ -4,22 +4,25 @@ import {
   registerEstudiante,
   loginEstudiante,
   logoutEstudiante,
-} from "../controllers/auth.estudiante.js";
-import { registerTutor, loginTutor } from "../controllers/auth.tutor.js";
+} from "../controllers/authEstudiante.controller.js";
+import {
+  registerTutor,
+  loginTutor,
+} from "../controllers/authTutor.controller.js";
 import {
   registerEstudianteValidations,
   registerTutorValidations,
   loginValidations,
 } from "../middlewares/validations/authValidator.js"; // Importa las nuevas validaciones
 
-const router = Router();
+const authRouter = Router();
 
 // =========================================================
 // RUTAS DE ESTUDIANTE
 // =========================================================
 
 // REGISTRO DE ESTUDIANTE
-router.post(
+authRouter.post(
   "/register/student",
   registerEstudianteValidations, // 1. Aplica las reglas
   aplicarValidaciones, // 2. Muestra los errores (si existen)
@@ -27,7 +30,7 @@ router.post(
 );
 
 // LOGIN DE ESTUDIANTE
-router.post(
+authRouter.post(
   "/login/student",
   loginValidations,
   aplicarValidaciones,
@@ -39,7 +42,7 @@ router.post(
 // =========================================================
 
 // REGISTRO DE TUTOR
-router.post(
+authRouter.post(
   "/register/tutor",
   registerTutorValidations,
   aplicarValidaciones,
@@ -47,11 +50,16 @@ router.post(
 );
 
 // LOGIN DE TUTOR
-router.post("/login/tutor", loginValidations, aplicarValidaciones, loginTutor);
+authRouter.post(
+  "/login/tutor",
+  loginValidations,
+  aplicarValidaciones,
+  loginTutor
+);
 
 // =========================================================
 // LOGOUT (Genérico)
 // =========================================================
-router.post("/logout", logoutEstudiante);
+authRouter.post("/logout", logoutEstudiante);
 
-export default router;
+export default authRouter;
