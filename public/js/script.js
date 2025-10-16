@@ -15,7 +15,13 @@ function showDashboard(userRole) {
   if (userRole === "student") {
     document.getElementById("student-dashboard").style.display = "block";
     document.getElementById("tutor-dashboard").style.display = "none";
-    fetchAndDisplayTutors();
+    
+    // 👇 SOLUCIÓN CLAVE: Añadir un pequeño retraso
+    // Le da al navegador tiempo para procesar el Set-Cookie antes de la siguiente petición
+    setTimeout(() => {
+        fetchAndDisplayTutors();
+    }, 50); // 50 milisegundos es suficiente, pero puedes probar con 100 si falla
+    
   } else if (userRole === "tutor") {
     document.getElementById("student-dashboard").style.display = "none";
     document.getElementById("tutor-dashboard").style.display = "block";
@@ -30,16 +36,15 @@ async function fetchAndDisplayTutors() {
   tutorListContainer.innerHTML = "<p>Cargando tutores...</p>";
 
   try {
-    // 👇 LA CORRECCIÓN CLAVE ESTÁ AQUÍ 👇
     const response = await fetch(`${API_URL}/tutors`, {
       method: "GET", // Aunque es el default, ser explícito ayuda
-      credentials: "include", // 👈 Esto le dice al navegador que envíe las cookies
+      credentials: "include", // Esto le dice al navegador que envíe las cookies
     });
 
     const result = await response.json();
 
     if (!response.ok || !result.ok) {
-      // El mensaje de error ahora será "No autorizado: No hay token"
+      // Si falla, el error será "No autorizado: No hay token" o similar
       tutorListContainer.innerHTML = `<p class="error-message">${
         result.msg || "No se pudieron cargar los tutores."
       }</p>`;
@@ -113,9 +118,10 @@ document.getElementById("login-form").addEventListener("submit", async (e) => {
     });
     const data = await response.json();
     if (response.ok) {
+      // Si el login es exitoso, llama a showDashboard
       showDashboard(role);
     } else {
-      // ✨ MEJORA CLAVE: Muestra el error específico de la validación
+      // Muestra el error específico de la validación o del servidor
       const firstError = data.errors
         ? Object.values(data.errors)[0].msg
         : data.msg;
@@ -151,8 +157,7 @@ document
     };
 
     if (role === "tutor") {
-      // ✨ LÓGICA CLAVE: Limpiamos los datos antes de enviar
-      // 1. Separa por comas, quita espacios y filtra cualquier valor vacío.
+      // Limpiamos y preparamos los datos del tutor
       const subjects = document
         .getElementById("register-subjects")
         .value.split(",")
@@ -161,7 +166,6 @@ document
       const hourlyRate = document.getElementById("register-hourlyRate").value;
 
       body.subjects = subjects;
-      // 2. Solo incluye la tarifa si se ha introducido un valor.
       if (hourlyRate) {
         body.hourlyRate = hourlyRate;
       }
@@ -175,9 +179,10 @@ document
       });
       const data = await response.json();
       if (response.ok) {
+        // Si el registro es exitoso, llama a showDashboard
         showDashboard(role);
       } else {
-        // ✨ MEJORA CLAVE: Muestra el error específico de la validación
+        // Muestra el error específico de la validación o del servidor
         const firstError = data.errors
           ? Object.values(data.errors)[0].msg
           : data.msg;
