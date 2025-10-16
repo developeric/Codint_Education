@@ -7,7 +7,7 @@ import cookieParser from "cookie-parser";
 // CAMBIO A IMPORTACIÓN CON NOMBRE:
 import { dbConnection } from "./src/config/database.js"; // Antes era 'import dbConnection from ...' o similar
 import router from "./src/routes/auth.routes.js";
-// 
+//
 // Inicialización
 const PORT = process.env.PORT; //
 const app = express();
