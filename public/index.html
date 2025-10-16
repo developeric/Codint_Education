@@ -13,7 +13,6 @@
                 <button class="tab-link active" onclick="openTab(event, 'login')">Iniciar Sesión</button>
                 <button class="tab-link" onclick="openTab(event, 'register')">Registrarse</button>
             </div>
-
             <div id="login" class="tab-content" style="display: block;">
                 <h2>Iniciar Sesión</h2>
                 <form id="login-form">
@@ -26,7 +25,6 @@
                     <button type="submit">Entrar</button>
                 </form>
             </div>
-
             <div id="register" class="tab-content">
                 <h2>Registrarse</h2>
                 <form id="register-form">
@@ -48,24 +46,7 @@
             </div>
             <p id="error-message" class="error-message"></p>
         </div>
-
-<div id="dashboard" style="display: none;">
-    <h2 id="welcome-message"></h2>
-    
-    <div id="student-dashboard" style="display: none;">
-        <h3>Tutores Disponibles</h3>
-        <div id="tutor-list" class="tutor-list-container">
-            </div>
     </div>
-
-    <div id="tutor-dashboard" style="display: none;">
-        <p>Este es tu panel de tutor. Próximamente podrás ver tus estudiantes y gestionar tus clases.</p>
-    </div>
-
-    <button id="logout-button">Cerrar Sesión</button>
-</div>
-    </div>
-
     <script src="js/script.js"></script>
 </body>
 </html>

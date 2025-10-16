@@ -1,9 +1,11 @@
+// src/routes/auth.routes.js
+
 import { Router } from "express";
-import { aplicarValidaciones } from "../middlewares/validator.js"; // Middleware que verifica si hay errores
+import { aplicarValidaciones } from "../middlewares/validator.js";
 import {
   registerEstudiante,
   loginEstudiante,
-  logoutEstudiante,
+  // Ya no importamos logoutEstudiante
 } from "../controllers/authEstudiante.controller.js";
 import {
   registerTutor,
@@ -13,23 +15,23 @@ import {
   registerEstudianteValidations,
   registerTutorValidations,
   loginValidations,
-} from "../middlewares/validations/authValidator.js"; // Importa las nuevas validaciones
+} from "../middlewares/validations/authValidator.js";
 
 const authRouter = Router();
 
-// =========================================================
-// RUTAS DE ESTUDIANTE
-// =========================================================
+// ✨ MEJORA: Creamos una función de logout genérica aquí mismo
+const logout = (req, res) => {
+  res.clearCookie("token");
+  return res.json({ ok: true, msg: "Logout exitoso" });
+};
 
-// REGISTRO DE ESTUDIANTE
+// --- RUTAS DE ESTUDIANTE ---
 authRouter.post(
   "/register/student",
-  registerEstudianteValidations, // 1. Aplica las reglas
-  aplicarValidaciones, // 2. Muestra los errores (si existen)
-  registerEstudiante // 3. Ejecuta el controlador
+  registerEstudianteValidations,
+  aplicarValidaciones,
+  registerEstudiante
 );
-
-// LOGIN DE ESTUDIANTE
 authRouter.post(
   "/login/student",
   loginValidations,
@@ -37,19 +39,13 @@ authRouter.post(
   loginEstudiante
 );
 
-// =========================================================
-// RUTAS DE TUTOR
-// =========================================================
-
-// REGISTRO DE TUTOR
+// --- RUTAS DE TUTOR ---
 authRouter.post(
   "/register/tutor",
   registerTutorValidations,
   aplicarValidaciones,
   registerTutor
 );
-
-// LOGIN DE TUTOR
 authRouter.post(
   "/login/tutor",
   loginValidations,
@@ -57,9 +53,7 @@ authRouter.post(
   loginTutor
 );
 
-// =========================================================
-// LOGOUT (Genérico)
-// =========================================================
-authRouter.post("/logout", logoutEstudiante);
+// --- LOGOUT (Genérico) ---
+authRouter.post("/logout", logout); // ✨ Usamos la nueva función genérica
 
 export default authRouter;

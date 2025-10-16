@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Panel - Plataforma de Tutorías</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <div id="dashboard">
+            <h2 id="welcome-message">Cargando...</h2>
+            
+            <div id="student-dashboard" style="display: none;">
+                <h3>Tutores Disponibles</h3>
+                <div id="tutor-list" class="tutor-list-container"></div>
+            </div>
+
+            <div id="tutor-dashboard" style="display: none;">
+                <h3>Gestiona tu Perfil</h3>
+                <form id="edit-tutor-profile-form">
+                    <label for="edit-biography">Tu Biografía:</label>
+                    <textarea id="edit-biography" rows="4" placeholder="Habla sobre ti..."></textarea>
+                    <label for="edit-subjects">Tus Materias:</label>
+                    <input type="text" id="edit-subjects">
+                    <label for="edit-hourlyRate">Tu Tarifa por Hora:</label>
+                    <input type="number" id="edit-hourlyRate">
+                    <button type="submit">Guardar Cambios</button>
+                    <p id="tutor-success-message" class="success-message"></p>
+                </form>
+            </div>
+            <button id="logout-button">Cerrar Sesión</button>
+        </div>
+    </div>
+    <div id="tutor-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeTutorModal()">&times;</span>
+            <div id="modal-body"></div>
+        </div>
+    </div>
+    <script src="js/principal.js"></script>
+</body>
+</html>

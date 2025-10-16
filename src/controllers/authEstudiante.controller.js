@@ -1,127 +1,95 @@
-// src/controllers/auth.estudiante.js
+// src/controllers/authEstudiante.controller.js
 
-import { Estudiante } from "../models/estudiante.model.js"; // Importación con nombre
-import { hashPassword, comparePassword } from "../helpers/bcrypt.helper.js"; // Importación con nombre
-import { generateToken } from "../helpers/jwt.helper.js"; // Importación con nombre
+import { Estudiante } from "../models/estudiante.model.js";
+import { hashPassword, comparePassword } from "../helpers/bcrypt.helper.js";
+import { generateToken } from "../helpers/jwt.helper.js";
 
-// ... el resto del código del controlador permanece igual
-// ... (export const registerEstudiante, export const loginEstudiante, etc.)
-
-// === REGISTER ESTUDIANTE ===
+// === REGISTER (Sin cambios) ===
 export const registerEstudiante = async (req, res) => {
-  // Desestructuración, asegurando la captura de 'profile'
-  const { username, email, password, role, profile } = req.body;
-
-  // El campo 'role' debe ser 'student' para este endpoint
-  if (role && role !== "student") {
-    return res
-      .status(400)
-      .json({ ok: false, msg: "Rol de registro incorrecto." });
-  }
-
+  const { username, email, password, profile } = req.body;
   try {
-    // 1. Verificar existencia
-    const emailExiste = await Estudiante.findOne({ email: email });
-    if (emailExiste) {
+    const emailExiste = await Estudiante.findOne({ email });
+    if (emailExiste)
       return res
         .status(400)
-        .json({ ok: false, msg: "Este email ya está Registrado" });
-    }
-
-    const userExiste = await Estudiante.findOne({ username: username });
-    if (userExiste) {
+        .json({ ok: false, msg: "Este email ya está registrado" });
+    const userExiste = await Estudiante.findOne({ username });
+    if (userExiste)
       return res
         .status(400)
-        .json({ ok: false, msg: "Este Username ya está Registrado" });
-    }
-
-    // 2. Hashear la contraseña
-    const hashedPassword = await hashPassword(password); //
-
-    // 3. Crear el estudiante (usando el modelo Estudiante)
+        .json({ ok: false, msg: "Este nombre de usuario ya está registrado" });
+    const hashedPassword = await hashPassword(password);
     const estudiante = await Estudiante.create({
       username,
       email,
       password: hashedPassword,
-      // Usamos 'student' como valor predeterminado, aunque también viene del modelo
       role: "student",
       profile,
     });
-
-    // 4. Generar Token (El helper de JWT maneja la estructura del 'profile')
-    const token = generateToken(estudiante); //
-
-    // 5. Configurar Cookie
+    const token = generateToken(estudiante);
     res.cookie("token", token, {
       httpOnly: true,
-      maxAge: 1000 * 60 * 60, // 1 hora (o usa process.env.JWT_EXPIRE_IN)
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "Lax",
+      maxAge: 3600000,
     });
-
-    return res.status(201).json({
-      ok: true,
-      msg: "Registrado Correctamente",
-      data: {
-        id: estudiante._id,
-        username: estudiante.username,
-        role: estudiante.role,
-      },
-    });
-  } catch (error) {
-    console.log(error);
-    return res.status(500).json({
-      ok: false,
-      msg: "Error en el Servidor al Registrar",
-      data: null,
-    });
-  }
-};
-
-// === LOGIN ESTUDIANTE ===
-export const loginEstudiante = async (req, res) => {
-  const { username, password } = req.body;
-
-  try {
-    const user = await Estudiante.findOne({ username });
-
-    if (!user) {
-      return res
-        .status(400)
-        .json({ ok: false, msg: "Credenciales incorrectas" });
-    }
-
-    // Asegurar que solo los estudiantes puedan iniciar sesión aquí
-    if (user.role !== "student") {
-      return res
-        .status(403)
-        .json({ ok: false, msg: "Acceso denegado para este tipo de usuario." });
-    }
-
-    const validPassword = await comparePassword(password, user.password); //
-
-    if (!validPassword) {
-      return res
-        .status(401)
-        .json({ ok: false, msg: "Credenciales incorrectas" });
-    }
-
-    const token = generateToken(user); //
-
-    res.cookie("token", token, {
-      httpOnly: true,
-      maxAge: 1000 * 60 * 60,
-    });
-
-    return res.status(200).json({ ok: true, msg: "Logueado Correctamente" });
+    return res
+      .status(201)
+      .json({
+        ok: true,
+        msg: "Registrado Correctamente",
+        data: {
+          id: estudiante._id,
+          username: estudiante.username,
+          role: estudiante.role,
+          profile: estudiante.profile,
+        },
+      });
   } catch (error) {
     console.log(error);
     return res
       .status(500)
-      .json({ ok: false, msg: "Error Interno del Servidor" });
+      .json({ ok: false, msg: "Error en el servidor al registrar" });
   }
 };
 
-// === LOGOUT ESTUDIANTE ===
-export const logoutEstudiante = (req, res) => {
-  res.clearCookie("token"); // Eliminar cookie del navegador
-  return res.json({ ok: true, msg: "Logout exitoso" });
+// === LOGIN (Con corrección) ===
+export const loginEstudiante = async (req, res) => {
+  const { username, password } = req.body;
+  try {
+    const user = await Estudiante.findOne({ username });
+    if (!user || user.role !== "student")
+      return res
+        .status(401)
+        .json({ ok: false, msg: "Credenciales incorrectas" });
+    const validPassword = await comparePassword(password, user.password);
+    if (!validPassword)
+      return res
+        .status(401)
+        .json({ ok: false, msg: "Credenciales incorrectas" });
+    const token = generateToken(user);
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "Lax",
+      maxAge: 3600000,
+    });
+
+    // ✨ CAMBIO CLAVE: Devolvemos los datos del usuario para que el frontend los use
+    return res.status(200).json({
+      ok: true,
+      msg: "Logueado Correctamente",
+      data: {
+        id: user._id,
+        username: user.username,
+        role: user.role,
+        profile: user.profile,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+    return res
+      .status(500)
+      .json({ ok: false, msg: "Error interno del servidor" });
+  }
 };

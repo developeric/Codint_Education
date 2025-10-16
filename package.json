@@ -16,7 +16,8 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "dev": "node --watch server.js"
+    "dev": "node --watch server.js",
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
@@ -28,5 +29,6 @@
   "bugs": {
     "url": "https://github.com/developeric/Codint_Education/issues"
   },
-  "homepage": "https://github.com/developeric/Codint_Education#readme"
+  "homepage": "https://github.com/developeric/Codint_Education#readme",
+  "devDependencies": {}
 }
