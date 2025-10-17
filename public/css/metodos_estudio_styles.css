@@ -1,0 +1,117 @@
+/* public/css/metodos_estudio_styles.css */
+
+.methods-container {
+    display: grid;
+    grid-template-columns: 1fr; /* Una sola columna para los métodos */
+    gap: 25px;
+    max-width: 600px; /* Limitar el ancho para que el pomodoro se vea bien */
+    margin: 0 auto; /* Centrar el contenedor de métodos */
+}
+
+/* Estilos Específicos de Pomodoro */
+.pomodoro-card {
+    border-top: 5px solid var(--danger-color); /* Color rojo/naranja para Pomodoro */
+}
+
+.pomodoro-card .card-header h3 {
+    color: var(--danger-color);
+}
+
+.pomodoro-icon {
+    font-size: 24px;
+    color: var(--danger-color);
+}
+
+.pomodoro-desc {
+    color: var(--gray-color);
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.pomodoro-timer {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.timer-display {
+    font-size: 4rem;
+    font-weight: bold;
+    color: var(--dark-color);
+    margin-bottom: 5px;
+    /* Transición de color suave para el estado (estudio/descanso) */
+    transition: color 0.5s ease; 
+}
+
+.timer-display.studying {
+    color: var(--secondary-color);
+}
+
+.timer-display.breaking {
+    color: var(--success-color);
+}
+
+.timer-status {
+    font-size: 1rem;
+    color: var(--gray-color);
+    font-weight: 500;
+}
+
+.pomodoro-controls {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.pomodoro-controls button {
+    padding: 12px 20px;
+}
+
+.btn-start {
+    background-color: var(--secondary-color);
+}
+
+.btn-start:hover {
+    background-color: #555555;
+}
+.fullscreen-header {
+    position: absolute; /* Para que flote en la esquina */
+    top: 30px;
+    right: 30px;
+    z-index: 10;
+}
+
+#toggle-fullscreen-btn {
+    background: none;
+    border: none;
+    color: var(--secondary-color);
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 50%;
+    transition: var(--transition);
+}
+
+#toggle-fullscreen-btn:hover {
+    background-color: rgba(67, 97, 238, 0.1);
+}
+
+/* ======================================= */
+/* 🚨 2. ESTADO DE PANTALLA COMPLETA (APLICADO AL BODY) */
+/* ======================================= */
+
+body.fullscreen-mode .sidebar {
+    /* Oculta completamente el sidebar fuera de la pantalla */
+    transform: translateX(-250px); 
+}
+
+body.fullscreen-mode .main-content {
+    /* Mueve el main content para ocupar todo el ancho */
+    margin-left: 0;
+    width: 100%;
+}
+
+/* Ajuste del botón en modo expandido */
+body.fullscreen-mode #toggle-fullscreen-btn {
+    /* Cambia el ícono a 'contraer' y el color para que sea visible en el fondo claro */
+    color: var(--primary-color); 
+}

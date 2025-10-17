@@ -34,7 +34,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 // 🚨 CORRECCIÓN CLAVE: El path a 'public' no necesita '..'
-app.use(express.static(path.join(__dirname, "public"))); // Cambiado de '..', 'public' a solo 'public'
+app.use(express.static(path.join(__dirname, 'public')));// Cambiado de '..', 'public' a solo 'public'
 
 // --- Rutas de la API ---
 app.use("/api", authRoutes);
@@ -58,7 +58,7 @@ app.listen(PORT, async () => {
 
   try {
     //ESTA LINEA HACE QUE SE ABRA EL INDEX.HTML AUTOMATICAMENTE
-    await open(FRONTEND_URL);
+    // await open(FRONTEND_URL);
   } catch (error) {
     console.error("Error al intentar abrir el navegador:", error);
   }

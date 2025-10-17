@@ -1,230 +1,274 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dashboard - Plataforma de Tutorías</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="css/base_dashboard.css">
-    <link rel="stylesheet" href="css/dashboard_styles.css">
-</head>
-<body>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <link rel="stylesheet" href="css/base_dashboard.css" />
+    <link rel="stylesheet" href="css/dashboard_styles.css" />
+  </head>
+  <body>
     <div class="sidebar">
-        <div class="sidebar-header">
-            <div class="logo">Codint Education</div>
-        </div>
+      <div class="sidebar-header">
+        <div class="logo">Codint Education</div>
+      </div>
 
-        <div class="sidebar-menu">
-            <ul>
-                <li><a href="dashboard.html" class="active"><i class="fas fa-home"></i> <span>Dashboard</span></a></li>
-                <li><a href="cursos.html"><i class="fas fa-book"></i> <span>Mis Cursos</span></a></li>
-                <li><a href="mensajes.html"><i class="fas fa-comment"></i> <span>Mensajes</span></a></li>
-                <li><a href="configuracion.html"><i class="fas fa-cog"></i> <span>Configuración</span></a></li>
-            </ul>
-        </div>
+      <div class="sidebar-menu">
+        <ul>
+          <li>
+            <a href="dashboard.html" class="active"
+              ><i class="fas fa-home"></i> <span>Dashboard</span></a
+            >
+          </li>
+          <li>
+            <a href="cursos.html"
+              ><i class="fas fa-book"></i> <span>Mis Cursos</span></a
+            >
+          </li>
+          <li>
+            <a href="metodos_estudio.html"
+              ><i class="fas fa-brain"></i> <span>Métodos de Estudio Recomendado</span></a
+            >
+          </li>
+          <li>
+            <a href="mensajes.html"
+              ><i class="fas fa-comment"></i> <span>Mensajes</span></a
+            >
+          </li>
+          <li>
+            <a href="configuracion.html"
+              ><i class="fas fa-cog"></i> <span>Configuración</span></a
+            >
+          </li>
+        </ul>
+      </div>
 
-        <div class="user-profile">
-            <div class="user-avatar" id="sidebar-user-avatar"></div>
-            <div class="user-info">
-                <h4 id="sidebar-user-name">Cargando...</h4>
-                <p id="sidebar-user-role"></p>
-            </div>
-            <button class="logout-btn" id="logout-button" title="Cerrar sesión">
-                <i class="fas fa-sign-out-alt"></i>
-            </button>
+      <div class="user-profile">
+        <div class="user-avatar" id="sidebar-user-avatar"></div>
+        <div class="user-info">
+          <h4 id="sidebar-user-name">Cargando...</h4>
+          <p id="sidebar-user-role"></p>
         </div>
+        <button class="logout-btn" id="logout-button" title="Cerrar sesión">
+          <i class="fas fa-sign-out-alt"></i>
+        </button>
+      </div>
     </div>
 
     <div class="main-content">
-        <div class="page-header animate-fade-in">
-            <h1>Dashboard</h1>
-            <div class="breadcrumb">
-                <span>Inicio</span>
-                <i class="fas fa-chevron-right"></i>
-                <span>Dashboard</span>
-            </div>
+      <div class="page-header animate-fade-in">
+        <h1>Dashboard</h1>
+        <div class="breadcrumb">
+          <span>Inicio</span>
+          <i class="fas fa-chevron-right"></i>
+          <span>Dashboard</span>
+        </div>
+      </div>
+
+      <div
+        class="stats-container animate-fade-in"
+        style="animation-delay: 0.1s"
+      >
+        <div class="stat-card">
+          <div class="stat-icon blue">
+            <i class="fas fa-book"></i>
+          </div>
+          <div class="stat-info">
+            <h3 id="courses-count">0</h3>
+            <p>Cursos Activos</p>
+          </div>
         </div>
 
-        <div class="stats-container animate-fade-in" style="animation-delay: 0.1s;">
-            <div class="stat-card">
-                <div class="stat-icon blue">
-                    <i class="fas fa-book"></i>
-                </div>
-                <div class="stat-info">
-                    <h3 id="courses-count">0</h3>
-                    <p>Cursos Activos</p>
-                </div>
-            </div>
-
-            <div class="stat-card">
-                <div class="stat-icon purple">
-                    <i class="fas fa-clock"></i>
-                </div>
-                <div class="stat-info">
-                    <h3 id="hours-count">0</h3>
-                    <p>Horas de Estudio</p>
-                </div>
-            </div>
-
-            <div class="stat-card">
-                <div class="stat-icon green">
-                    <i class="fas fa-check-circle"></i>
-                </div>
-                <div class="stat-info">
-                    <h3 id="completed-count">0</h3>
-                    <p>Tareas Completadas</p>
-                </div>
-            </div>
-
-            <div class="stat-card">
-                <div class="stat-icon orange">
-                    <i class="fas fa-star"></i>
-                </div>
-                <div class="stat-info">
-                    <h3 id="points-count">0</h3>
-                    <p>Puntos Ganados</p>
-                </div>
-            </div>
+        <div class="stat-card">
+          <div class="stat-icon purple">
+            <i class="fas fa-clock"></i>
+          </div>
+          <div class="stat-info">
+            <h3 id="hours-count">0</h3>
+            <p>Horas de Estudio</p>
+          </div>
         </div>
 
-        <div class="dashboard-content">
-            <div class="main-column animate-fade-in" style="animation-delay: 0.2s;">
-                <div id="student-dashboard" style="display: none;">
-                    <div class="card">
-                        <div class="card-header">
-                            <h3>Próximas Clases</h3>
-                        </div>
-                        <div class="card-body">
-                            <div id="upcoming-classes">
-                                <div class="class-item">
-                                    <div class="class-info">
-                                        <h4>Matemáticas Avanzadas</h4>
-                                        <p><i class="fas fa-calendar"></i> Lunes, 15 de Mayo, 2025</p>
-                                        <p><i class="fas fa-clock"></i> 16:00 - 17:30</p>
-                                        <p><i class="fas fa-user"></i> Prof. Juan Pérez</p>
-                                    </div>
-                                    <div class="class-actions">
-                                        <button class="btn btn-primary">Ir al Chat</button>
-                                        <button class="btn btn-outline">Cancelar</button>
-                                    </div>
-                                </div>
-                                <div class="class-item">
-                                    <div class="class-info">
-                                        <h4>Programación en Python</h4>
-                                        <p><i class="fas fa-calendar"></i> Miércoles, 17 de Mayo, 2025</p>
-                                        <p><i class="fas fa-clock"></i> 18:00 - 19:30</p>
-                                        <p><i class="fas fa-user"></i> Prof. Ana García</p>
-                                    </div>
-                                    <div class="class-actions">
-                                        <button class="btn btn-primary">Ir al Chat</button>
-                                        <button class="btn btn-outline">Cancelar</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-header">
-                            <h3>Tutores Disponibles</h3>
-                        </div>
-                        <div class="card-body">
-                            <div id="tutor-list" class="tutor-list">
-                                </div>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-header">
-                            <h3>Mis Cursos</h3>
-                        </div>
-                        <div class="card-body">
-                            <div id="my-courses">
-                                <div class="course-item">
-                                    <div class="course-icon"><i class="fas fa-laptop-code"></i></div>
-                                    <div class="course-info">
-                                        <h4>Desarrollo Web Frontend</h4>
-                                        <div class="progress-bar">
-                                            <div class="progress" style="width: 65%"></div>
-                                        </div>
-                                        <p>65% completado</p>
-                                    </div>
-                                    <button class="btn btn-primary">Continuar</button>
-                                </div>
-                                <div class="course-item">
-                                    <div class="course-icon"><i class="fas fa-database"></i></div>
-                                    <div class="course-info">
-                                        <h4>Bases de Datos SQL</h4>
-                                        <div class="progress-bar">
-                                            <div class="progress" style="width: 30%"></div>
-                                        </div>
-                                        <p>30% completado</p>
-                                    </div>
-                                    <button class="btn btn-primary">Continuar</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                </div>
-
-                <div id="tutor-dashboard" style="display: none;">
-                    <div class="card">
-                        <div class="card-header">
-                            <h3>Gestiona tu Perfil de Tutor</h3>
-                        </div>
-                        <div class="card-body">
-                            <form id="edit-tutor-profile-form">
-                                <div class="form-group">
-                                    <label for="edit-biography">Tu Biografía:</label>
-                                    <textarea id="edit-biography" class="form-control" rows="4" placeholder="Habla sobre ti, tu experiencia y especialidades..."></textarea>
-                                </div>
-                                <div class="form-group">
-                                    <label for="edit-subjects">Tus Materias:</label>
-                                    <input type="text" id="edit-subjects" class="form-control" placeholder="Ej: Matemáticas, Física, Programación">
-                                </div>
-                                <div class="form-group">
-                                    <label for="edit-hourlyRate">Tu Tarifa por Hora ($):</label>
-                                    <input type="number" id="edit-hourlyRate" class="form-control" placeholder="Ej: 25">
-                                </div>
-                                <button type="submit" class="btn btn-primary">Guardar Cambios</button>
-                                <p id="tutor-success-message" class="success-message"></p>
-                            </form>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-header">
-                            <h3>Solicitudes de Clases</h3>
-                        </div>
-                        <div class="card-body">
-                            <div id="class-requests">
-                                <p>No tienes solicitudes de clases pendientes.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="side-column animate-fade-in" style="animation-delay: 0.3s;">
-                <div class="card">
-                    <div class="card-header">
-                        <h3>Actividad Reciente</h3>
-                    </div>
-                    <div class="card-body">
-                        <div id="recent-activity">
-                            <div class="activity-item">
-                                <div class="activity-icon"><i class="fas fa-book"></i></div>
-                                <div class="activity-content">
-                                    <p>Completaste la lección <strong>Introducción a HTML</strong></p>
-                                    <span class="activity-time">Hace 2 horas</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="stat-card">
+          <div class="stat-icon green">
+            <i class="fas fa-check-circle"></i>
+          </div>
+          <div class="stat-info">
+            <h3 id="completed-count">0</h3>
+            <p>Tareas Completadas</p>
+          </div>
         </div>
+      </div>
+
+      <div class="dashboard-content">
+        <div class="main-column animate-fade-in" style="animation-delay: 0.2s">
+          <div id="student-dashboard" style="display: none">
+            <div class="card">
+              <div class="card-header">
+                <h3>Próximas Clases</h3>
+              </div>
+              <div class="card-body">
+                <div id="upcoming-classes">
+                  <div class="class-item">
+                    <div class="class-info">
+                      <h4>Matemáticas Avanzadas</h4>
+                      <p>
+                        <i class="fas fa-calendar"></i> Lunes, 15 de Mayo, 2025
+                      </p>
+                      <p><i class="fas fa-clock"></i> 16:00 - 17:30</p>
+                      <p><i class="fas fa-user"></i> Prof. Juan Pérez</p>
+                    </div>
+                    <div class="class-actions">
+                      <button class="btn btn-primary">Ir al Chat</button>
+                      <button class="btn btn-outline">Cancelar</button>
+                    </div>
+                  </div>
+                  <div class="class-item">
+                    <div class="class-info">
+                      <h4>Programación en Python</h4>
+                      <p>
+                        <i class="fas fa-calendar"></i> Miércoles, 17 de Mayo,
+                        2025
+                      </p>
+                      <p><i class="fas fa-clock"></i> 18:00 - 19:30</p>
+                      <p><i class="fas fa-user"></i> Prof. Ana García</p>
+                    </div>
+                    <div class="class-actions">
+                      <button class="btn btn-primary">Ir al Chat</button>
+                      <button class="btn btn-outline">Cancelar</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header">
+                <h3>Tutores Disponibles</h3>
+              </div>
+              <div class="card-body">
+                <div id="tutor-list" class="tutor-list"></div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header">
+                <h3>Mis Cursos</h3>
+              </div>
+              <div class="card-body">
+                <div id="my-courses">
+                  <div class="course-item">
+                    <div class="course-icon">
+                      <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <div class="course-info">
+                      <h4>Desarrollo Web Frontend</h4>
+                      <div class="progress-bar">
+                        <div class="progress" style="width: 65%"></div>
+                      </div>
+                      <p>65% completado</p>
+                    </div>
+                    <button class="btn btn-primary">Continuar</button>
+                  </div>
+                  <div class="course-item">
+                    <div class="course-icon">
+                      <i class="fas fa-database"></i>
+                    </div>
+                    <div class="course-info">
+                      <h4>Bases de Datos SQL</h4>
+                      <div class="progress-bar">
+                        <div class="progress" style="width: 30%"></div>
+                      </div>
+                      <p>30% completado</p>
+                    </div>
+                    <button class="btn btn-primary">Continuar</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div id="tutor-dashboard" style="display: none">
+            <div class="card">
+              <div class="card-header">
+                <h3>Gestiona tu Perfil de Tutor</h3>
+              </div>
+              <div class="card-body">
+                <form id="edit-tutor-profile-form">
+                  <div class="form-group">
+                    <label for="edit-biography">Tu Biografía:</label>
+                    <textarea
+                      id="edit-biography"
+                      class="form-control"
+                      rows="4"
+                      placeholder="Habla sobre ti, tu experiencia y especialidades..."
+                    ></textarea>
+                  </div>
+                  <div class="form-group">
+                    <label for="edit-subjects">Tus Materias:</label>
+                    <input
+                      type="text"
+                      id="edit-subjects"
+                      class="form-control"
+                      placeholder="Ej: Matemáticas, Física, Programación"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="edit-hourlyRate">Tu Tarifa por Hora ($):</label>
+                    <input
+                      type="number"
+                      id="edit-hourlyRate"
+                      class="form-control"
+                      placeholder="Ej: 25"
+                    />
+                  </div>
+                  <button type="submit" class="btn btn-primary">
+                    Guardar Cambios
+                  </button>
+                  <p id="tutor-success-message" class="success-message"></p>
+                </form>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header">
+                <h3>Solicitudes de Clases</h3>
+              </div>
+              <div class="card-body">
+                <div id="class-requests">
+                  <p>No tienes solicitudes de clases pendientes.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="side-column animate-fade-in" style="animation-delay: 0.3s">
+          <div class="card">
+            <div class="card-header">
+              <h3>Actividad Reciente</h3>
+            </div>
+            <div class="card-body">
+              <div id="recent-activity">
+                <div class="activity-item">
+                  <div class="activity-icon"><i class="fas fa-book"></i></div>
+                  <div class="activity-content">
+                    <p>
+                      Completaste la lección
+                      <strong>Introducción a HTML</strong>
+                    </p>
+                    <span class="activity-time">Hace 2 horas</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <script src="js/dashboard.js"></script>
-</body>
+  </body>
 </html>
