@@ -1,7 +1,5 @@
-// src/controllers/tutor.controller.js
-
 import { Tutor } from "../models/tutor.model.js";
-
+import { Estudiante } from "../models/estudiante.model.js";
 // OBTENER TODOS LOS TUTORES (Para Estudiantes)
 export const getAllTutors = async (req, res) => {
   try {
@@ -9,6 +7,18 @@ export const getAllTutors = async (req, res) => {
     return res.status(200).json({ ok: true, data: tutors });
   } catch (error) {
     return res.status(500).json({ ok: false, msg: "Error en el servidor." });
+  }
+};
+
+export const getStudentsForTutor = async (req, res) => {
+  try {
+    const students = await Estudiante.find().select("profile username");
+    return res.status(200).json({ ok: true, data: students });
+  } catch (error) {
+    console.log(error);
+    return res
+      .status(500)
+      .json({ ok: false, msg: "Error en el servidor al obtener estudiantes." });
   }
 };
 
