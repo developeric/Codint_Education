@@ -14,6 +14,7 @@ import authRoutes from "./src/routes/auth.routes.js";
 import tutorRoutes from "./src/routes/tutor.routes.js";
 import userRoutes from "./src/routes/user.routes.js";
 import messageRouter from "./src/routes/message.routes.js";
+import cursoRouter from "./src/routes/curso.routes.js";
 
 // --- Configuración de __dirname para ES Modules ---
 const __filename = fileURLToPath(import.meta.url);
@@ -41,6 +42,8 @@ app.use("/api", authRoutes);
 app.use("/api", tutorRoutes);
 app.use("/api", userRoutes);
 app.use("/api", messageRouter);
+// Rutas para cursos/clases
+app.use("/api/cursos", cursoRouter);
 
 // 💡 MEJORA: Agregar una ruta explícita para la raíz (/) para asegurar el index.html
 app.get("/", (req, res) => {
@@ -58,7 +61,7 @@ app.listen(PORT, async () => {
 
   try {
     //ESTA LINEA HACE QUE SE ABRA EL INDEX.HTML AUTOMATICAMENTE
-    await open(FRONTEND_URL);
+    // await open(FRONTEND_URL);
   } catch (error) {
     console.error("Error al intentar abrir el navegador:", error);
   }
