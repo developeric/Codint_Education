@@ -119,19 +119,10 @@ async function handleProfileUpdate(userData) {
     const successMessage = document.getElementById('profile-success-message');
     successMessage.style.display = 'none';
 
-    // 1. Obtener el token de autenticación (Asumimos que está guardado en userData)
-    const token = userData.token; 
-    
-    if (!token) {
-        successMessage.textContent = 'Error: Sesión expirada. Por favor, inicie sesión.';
-        successMessage.style.color = 'red';
-        successMessage.style.display = 'block';
-        return; 
-    }
+    // 1. Ya NO dependemos de userData.token. Confiamos en la Cookie HttpOnly.
 
     // 2. Obtener solo los valores permitidos (username, nombre, apellido, biografía)
     const username = document.getElementById('profile-username').value.trim();
-    // El email NO se incluye en updateBody
     const firstName = document.getElementById('profile-firstName').value.trim();
     const lastName = document.getElementById('profile-lastName').value.trim();
     const biography = document.getElementById('profile-bio').value.trim();
@@ -158,17 +149,23 @@ async function handleProfileUpdate(userData) {
             method: 'PUT',
             headers: { 
                 'Content-Type': 'application/json',
-                // SOLUCIÓN: Incluir el token en la cabecera Authorization
-                'Authorization': `Bearer ${token}` 
+                // 🚨 SOLUCIÓN CRÍTICA: Eliminamos la cabecera Authorization 
+                // para que el navegador pueda enviar la Cookie HttpOnly.
             },
+            credentials: 'include', // Asegura el envío de la cookie
             body: JSON.stringify(updateBody)
         });
 
         const result = await response.json();
         
-        if (!response.ok) throw new Error(result.msg || "Error al actualizar el perfil.");
+        // El servidor puede devolver 401 si la cookie expiró
+        if (!response.ok) {
+            const errorMsg = response.status === 401 ? "Error: Sesión no válida. Por favor, inicie sesión de nuevo." : (result.msg || "Error al actualizar el perfil.");
+            throw new Error(errorMsg);
+        }
 
         // 3. Actualizar datos en localStorage y UI
+        // NOTA: Asumimos que el backend devuelve los datos actualizados que necesitamos
         const updatedUser = { 
             ...userData, 
             ...result.data, 
@@ -190,9 +187,7 @@ async function handleProfileUpdate(userData) {
 
     } catch (error) {
         console.error("Error al actualizar perfil:", error);
-        // Si el error es de autenticación, mostramos el mensaje de error del servidor o un genérico.
-        const errorMessage = error.message.includes("No autorizado") ? "Error: No autorizado. Verifica la sesión." : `Error: ${error.message}`;
-        successMessage.textContent = errorMessage;
+        successMessage.textContent = error.message;
         successMessage.style.color = 'red';
         successMessage.style.display = 'block';
     }
