@@ -20,7 +20,7 @@ async function initializeTutorDashboard() {
     }
 
     // Si es un tutor, poblamos la página con su información
-    document.getElementById("welcome-message").textContent = `Bienvenido, Tutor ${user.profile.firstName}`;
+    document.getElementById("welcome-message").textContent = '¡Bienvenido/a!';
     loadTutorProfile(user);
     
     // Agregamos la funcionalidad de ver solicitudes de estudiantes

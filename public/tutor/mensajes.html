@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mensajes - Codint Education</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="css/base_dashboard.css">
+    <link rel="stylesheet" href="css/mensajes_styles.css">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">Codint Education</div>
+        </div>
+
+        <div class="sidebar-menu">
+            <ul>
+                <li><a href="dashboard.html"><i class="fas fa-home"></i> <span>Dashboard</span></a></li>
+                <li><a href="cursos.html"><i class="fas fa-book"></i> <span>Mis Clases</span></a></li>
+                <li><a href="mensajes.html" class="active"><i class="fas fa-comment"></i> <span>Mensajes</span></a></li>
+                <li><a href="configuracion.html"><i class="fas fa-cog"></i> <span>Configuración</span></a></li>
+            </ul>
+        </div>
+
+        <div class="user-profile">
+            <div class="user-avatar" id="sidebar-user-avatar"></div>
+            <div class="user-info">
+                <h4 id="sidebar-user-name">Cargando...</h4>
+                <p id="sidebar-user-role"></p>
+            </div>
+            <button class="logout-btn" id="logout-button" title="Cerrar sesión">
+                <i class="fas fa-sign-out-alt"></i>
+            </button>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="page-header animate-fade-in">
+            <h1>Mensajes</h1>
+            <div class="breadcrumb">
+                <span>Inicio</span>
+                <i class="fas fa-chevron-right"></i>
+                <span>Mensajes</span>
+            </div>
+        </div>
+
+        <div class="messages-container animate-fade-in" style="animation-delay: 0.1s;">
+            <div class="contacts-list">
+                <div class="contacts-header">
+                    <div class="search-box">
+                        <input type="text" placeholder="Buscar contactos..." id="contact-search">
+                        <i class="fas fa-search"></i>
+                    </div>
+                </div>
+                <div id="contacts-container">
+                    </div>
+            </div>
+
+            <div class="chat-area" id="chat-area">
+                <div class="empty-state">
+                    <i class="fas fa-comments"></i>
+                    <h3>No hay conversación seleccionada</h3>
+                    <p>Selecciona un contacto para comenzar a chatear o iniciar una nueva conversación.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/mensajes.js"></script>
+</body>
+</html>
