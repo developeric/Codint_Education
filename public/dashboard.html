@@ -123,7 +123,16 @@
                             </div>
                         </div>
                     </div>
-                    
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Tutores Disponibles</h3>
+                        </div>
+                        <div class="card-body">
+                            <div id="tutor-list" class="tutor-list">
+                                </div>
+                        </div>
+                    </div>
                     <div class="card">
                         <div class="card-header">
                             <h3>Mis Cursos</h3>
@@ -156,36 +165,6 @@
                         </div>
                     </div>
                     
-                    <div class="card">
-                        <div class="card-header">
-                            <h3>Mensajes</h3>
-                        </div>
-                        <div class="card-body">
-                            <div id="messages">
-                                <div class="message-item unread">
-                                    <div class="message-avatar">JP</div>
-                                    <div class="message-content">
-                                        <div class="message-header">
-                                            <h4>Juan Pérez</h4>
-                                            <span class="message-time">Hoy, 14:30</span>
-                                        </div>
-                                        <p>Hola, te envío los materiales para la próxima clase...</p>
-                                    </div>
-                                </div>
-                                <div class="message-item">
-                                    <div class="message-avatar">AG</div>
-                                    <div class="message-content">
-                                        <div class="message-header">
-                                            <h4>Ana García</h4>
-                                            <span class="message-time">Ayer, 18:15</span>
-                                        </div>
-                                        <p>¿Tienes alguna duda sobre el ejercicio de Python?</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <button class="btn btn-outline" style="width: 100%; margin-top: 15px;">Ver todos los mensajes</button>
-                        </div>
-                    </div>
                 </div>
 
                 <div id="tutor-dashboard" style="display: none;">
@@ -229,43 +208,6 @@
             <div class="side-column animate-fade-in" style="animation-delay: 0.3s;">
                 <div class="card">
                     <div class="card-header">
-                        <h3>Configuración</h3>
-                    </div>
-                    <div class="card-body">
-                        <form id="settings-form">
-                            <div class="form-group">
-                                <label for="notification-setting">Notificaciones</label>
-                                <select id="notification-setting" class="form-control">
-                                    <option value="all">Todas las notificaciones</option>
-                                    <option value="important">Solo importantes</option>
-                                    <option value="none">Ninguna</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="language-setting">Idioma</label>
-                                <select id="language-setting" class="form-control">
-                                    <option value="es">Español</option>
-                                    <option value="en">Inglés</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label>Privacidad</label>
-                                <div class="checkbox-group">
-                                    <input type="checkbox" id="privacy-profile" checked>
-                                    <label for="privacy-profile">Perfil visible para tutores</label>
-                                </div>
-                                <div class="checkbox-group">
-                                    <input type="checkbox" id="privacy-status" checked>
-                                    <label for="privacy-status">Mostrar estado en línea</label>
-                                </div>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Guardar Cambios</button>
-                        </form>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="card-header">
                         <h3>Actividad Reciente</h3>
                     </div>
                     <div class="card-body">
@@ -275,20 +217,6 @@
                                 <div class="activity-content">
                                     <p>Completaste la lección <strong>Introducción a HTML</strong></p>
                                     <span class="activity-time">Hace 2 horas</span>
-                                </div>
-                            </div>
-                            <div class="activity-item">
-                                <div class="activity-icon"><i class="fas fa-comment"></i></div>
-                                <div class="activity-content">
-                                    <p>Nuevo mensaje de <strong>Ana García</strong></p>
-                                    <span class="activity-time">Ayer</span>
-                                </div>
-                            </div>
-                            <div class="activity-item">
-                                <div class="activity-icon"><i class="fas fa-certificate"></i></div>
-                                <div class="activity-content">
-                                    <p>Obtuviste un certificado en <strong>CSS Avanzado</strong></p>
-                                    <span class="activity-time">Hace 3 días</span>
                                 </div>
                             </div>
                         </div>
