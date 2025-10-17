@@ -1,10 +1,10 @@
 /* ---------------------------------- */
-/* ESTILOS PARA LA PÁGINA DE MENSAJES */
+/* ESTILOS PARA LA PÁGINA DE MENSAJES (TUTOR) */
 /* ---------------------------------- */
 
 .messages-container {
     display: flex;
-    height: calc(100vh - 180px); /* Ajustado para el nuevo layout */
+    height: calc(100vh - 180px);
     background-color: var(--card-dark);
     border-radius: var(--border-radius);
     box-shadow: var(--box-shadow);
