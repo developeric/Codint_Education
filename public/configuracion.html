@@ -18,7 +18,7 @@
             <ul>
                 <li><a href="dashboard.html"><i class="fas fa-home"></i> <span>Dashboard</span></a></li>
                 <li><a href="cursos.html"><i class="fas fa-book"></i> <span>Mis Cursos</span></a></li>
-                <li><a href="metodos_estudio.html"><i class="fas fa-brain"></i> <span>Métodos de Estudio Recomendado</span></a></li>
+                <li><a href="metodos_estudio.html"><i class="fas fa-brain"></i> <span>Métodos de Estudio</span></a></li>
                 <li><a href="mensajes.html"><i class="fas fa-comment"></i> <span>Mensajes</span></a></li>
                 <li><a href="configuracion.html" class="active"><i class="fas fa-cog"></i> <span>Configuración</span></a></li>
             </ul>
@@ -38,52 +38,61 @@
 
     <div class="main-content">
         <div class="page-header animate-fade-in">
-            <h1>Configuración</h1>
+            <h1>Configuración de Cuenta</h1>
             <div class="breadcrumb">
                 <span>Inicio</span>
                 <i class="fas fa-chevron-right"></i>
                 <span>Configuración</span>
             </div>
         </div>
-
+        
         <div class="card animate-fade-in" style="animation-delay: 0.1s;">
             <div class="card-header">
-                <h3>Preferencias de Usuario</h3>
+                <h3>Datos de Perfil</h3>
             </div>
             <div class="card-body">
-                <form id="settings-form">
+                <form id="profile-form">
                     <div class="form-group">
-                        <label for="notification-setting">Notificaciones</label>
-                        <select id="notification-setting" class="form-control">
-                            <option value="all">Todas las notificaciones</option>
-                            <option value="important">Solo importantes</option>
-                            <option value="none">Ninguna</option>
-                        </select>
+                        <label for="profile-username">Nombre de Usuario:</label>
+                        <input type="text" id="profile-username" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label for="language-setting">Idioma</label>
-                        <select id="language-setting" class="form-control">
-                            <option value="es">Español</option>
-                            <option value="en">Inglés</option>
-                        </select>
+                        <label for="profile-email">Correo Electrónico:</label>
+                        <input type="email" id="profile-email" class="form-control" readonly>
                     </div>
+
                     <div class="form-group">
-                        <label>Privacidad</label>
-                        <div class="checkbox-group">
-                            <input type="checkbox" id="privacy-profile" checked>
-                            <label for="privacy-profile">Perfil visible para tutores</label>
+                        <label for="profile-firstName">Nombre:</label>
+                        <input type="text" id="profile-firstName" class="form-control">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="profile-lastName">Apellido:</label>
+                        <input type="text" id="profile-lastName" class="form-control">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="profile-bio">Biografía:</label>
+                        <textarea id="profile-bio" class="form-control" rows="4"></textarea>
+                    </div>
+
+                    <div id="tutor-fields-container" style="display:none;">
+                        <div class="form-group">
+                            <label for="profile-subjects">Materias (Separadas por coma):</label>
+                            <input type="text" id="profile-subjects" class="form-control" placeholder="Ej: Matemáticas, Física, Programación">
                         </div>
-                        <div class="checkbox-group">
-                            <input type="checkbox" id="privacy-status" checked>
-                            <label for="privacy-status">Mostrar estado en línea</label>
+                        <div class="form-group">
+                            <label for="profile-hourlyRate">Tarifa por Hora ($):</label>
+                            <input type="number" id="profile-hourlyRate" class="form-control">
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
-                    <p id="settings-success-message" class="success-message" style="display: none;">Configuración guardada correctamente</p>
+                    
+                    <button type="submit" class="btn btn-primary">Actualizar Perfil</button>
+                    <p id="profile-success-message" class="success-message" style="display: none;">Perfil actualizado correctamente</p>
                 </form>
             </div>
         </div>
-
+        
         <div class="card animate-fade-in" style="animation-delay: 0.2s;">
             <div class="card-header">
                 <h3>Cambiar Contraseña</h3>
@@ -110,24 +119,27 @@
 
         <div class="card animate-fade-in" style="animation-delay: 0.3s;">
             <div class="card-header">
-                <h3>Datos de Perfil</h3>
+                <h3>Preferencias Generales</h3>
             </div>
             <div class="card-body">
-                <form id="profile-form">
+                <form id="settings-form">
                     <div class="form-group">
-                        <label for="profile-name">Nombre</label>
-                        <input type="text" id="profile-name" class="form-control">
+                        <label for="notification-setting">Notificaciones</label>
+                        <select id="notification-setting" class="form-control">
+                            <option value="all">Todas las notificaciones</option>
+                            <option value="important">Solo importantes</option>
+                            <option value="none">Ninguna</option>
+                        </select>
                     </div>
                     <div class="form-group">
-                        <label for="profile-email">Correo Electrónico</label>
-                        <input type="email" id="profile-email" class="form-control">
+                        <label for="language-setting">Idioma</label>
+                        <select id="language-setting" class="form-control">
+                            <option value="es">Español</option>
+                            <option value="en">Inglés</option>
+                        </select>
                     </div>
-                    <div class="form-group">
-                        <label for="profile-bio">Biografía</label>
-                        <textarea id="profile-bio" class="form-control" rows="4"></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Actualizar Perfil</button>
-                    <p id="profile-success-message" class="success-message" style="display: none;">Perfil actualizado correctamente</p>
+                    <button type="submit" class="btn btn-primary">Guardar Preferencias</button>
+                    <p id="settings-success-message" class="success-message" style="display: none;">Preferencias guardadas correctamente</p>
                 </form>
             </div>
         </div>
