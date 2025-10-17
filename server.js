@@ -55,7 +55,7 @@ app.listen(PORT, async () => {
   console.log(`✅ Servidor corriendo en ${BACKEND_URL}`);
   
   try {
-      console.log(`Abriendo frontend en ${FRONTEND_URL}...`);
+      //ESTA LINEA HACE QUE SE ABRA EL INDEX.HTML AUTOMATICAMENTE
       await open(FRONTEND_URL);
   } catch (error) {
       console.error("Error al intentar abrir el navegador:", error);
