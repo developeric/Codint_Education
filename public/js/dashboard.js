@@ -76,9 +76,6 @@ function setupEventListeners() {
                 method: "POST",
                 credentials: "include",
             });
-            // Limpiar localStorage y redirigir al login
-            localStorage.removeItem('userData');
-            window.location.href = "index.html";
         } catch (error) {
             console.error("Error al cerrar sesión:", error);
         }
