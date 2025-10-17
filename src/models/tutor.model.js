@@ -70,7 +70,7 @@ const tutorSchema = new Schema(
       type: Number,
       default: 0,
       min: 0, 
-      max: 1000,// Puedes ajustar el máximo según tu modelo de negocio
+      max: 15000,// Ajustado para permitir tarifas más altas
     },
 
     averageRating: {
