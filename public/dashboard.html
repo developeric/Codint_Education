@@ -24,11 +24,7 @@
               ><i class="fas fa-home"></i> <span>Dashboard</span></a
             >
           </li>
-          <li>
-            <a href="cursos.html"
-              ><i class="fas fa-book"></i> <span>Mis Cursos</span></a
-            >
-          </li>
+                <li><a href="cursos.html"><i class="fas fa-book"></i> <span>Mis Tutorías</span></a></li>
           <li>
             <a href="metodos_estudio.html"
               ><i class="fas fa-brain"></i> <span>Métodos de Estudio Recomendado</span></a
@@ -79,7 +75,7 @@
           </div>
           <div class="stat-info">
             <h3 id="courses-count">0</h3>
-            <p>Cursos Activos</p>
+            <p>Tutorías Activas</p>
           </div>
         </div>
 
@@ -89,7 +85,7 @@
           </div>
           <div class="stat-info">
             <h3 id="hours-count">0</h3>
-            <p>Horas de Estudio</p>
+            <p>Minutos de Estudio</p>
           </div>
         </div>
 
@@ -107,45 +103,7 @@
       <div class="dashboard-content">
         <div class="main-column animate-fade-in" style="animation-delay: 0.2s">
           <div id="student-dashboard" style="display: none">
-            <div class="card">
-              <div class="card-header">
-                <h3>Próximas Clases</h3>
-              </div>
-              <div class="card-body">
-                <div id="upcoming-classes">
-                  <div class="class-item">
-                    <div class="class-info">
-                      <h4>Matemáticas Avanzadas</h4>
-                      <p>
-                        <i class="fas fa-calendar"></i> Lunes, 15 de Mayo, 2025
-                      </p>
-                      <p><i class="fas fa-clock"></i> 16:00 - 17:30</p>
-                      <p><i class="fas fa-user"></i> Prof. Juan Pérez</p>
-                    </div>
-                    <div class="class-actions">
-                      <button class="btn btn-primary">Ir al Chat</button>
-                      <button class="btn btn-outline">Cancelar</button>
-                    </div>
-                  </div>
-                  <div class="class-item">
-                    <div class="class-info">
-                      <h4>Programación en Python</h4>
-                      <p>
-                        <i class="fas fa-calendar"></i> Miércoles, 17 de Mayo,
-                        2025
-                      </p>
-                      <p><i class="fas fa-clock"></i> 18:00 - 19:30</p>
-                      <p><i class="fas fa-user"></i> Prof. Ana García</p>
-                    </div>
-                    <div class="class-actions">
-                      <button class="btn btn-primary">Ir al Chat</button>
-                      <button class="btn btn-outline">Cancelar</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
+            
             <div class="card">
               <div class="card-header">
                 <h3>Tutores Disponibles</h3>
@@ -154,42 +112,8 @@
                 <div id="tutor-list" class="tutor-list"></div>
               </div>
             </div>
-            <div class="card">
-              <div class="card-header">
-                <h3>Mis Cursos</h3>
-              </div>
-              <div class="card-body">
-                <div id="my-courses">
-                  <div class="course-item">
-                    <div class="course-icon">
-                      <i class="fas fa-laptop-code"></i>
-                    </div>
-                    <div class="course-info">
-                      <h4>Desarrollo Web Frontend</h4>
-                      <div class="progress-bar">
-                        <div class="progress" style="width: 65%"></div>
-                      </div>
-                      <p>65% completado</p>
-                    </div>
-                    <button class="btn btn-primary">Continuar</button>
-                  </div>
-                  <div class="course-item">
-                    <div class="course-icon">
-                      <i class="fas fa-database"></i>
-                    </div>
-                    <div class="course-info">
-                      <h4>Bases de Datos SQL</h4>
-                      <div class="progress-bar">
-                        <div class="progress" style="width: 30%"></div>
-                      </div>
-                      <p>30% completado</p>
-                    </div>
-                    <button class="btn btn-primary">Continuar</button>
-                  </div>
-                </div>
-              </div>
+            
             </div>
-          </div>
 
           <div id="tutor-dashboard" style="display: none">
             <div class="card">
@@ -247,26 +171,8 @@
         </div>
 
         <div class="side-column animate-fade-in" style="animation-delay: 0.3s">
-          <div class="card">
-            <div class="card-header">
-              <h3>Actividad Reciente</h3>
-            </div>
-            <div class="card-body">
-              <div id="recent-activity">
-                <div class="activity-item">
-                  <div class="activity-icon"><i class="fas fa-book"></i></div>
-                  <div class="activity-content">
-                    <p>
-                      Completaste la lección
-                      <strong>Introducción a HTML</strong>
-                    </p>
-                    <span class="activity-time">Hace 2 horas</span>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
-        </div>
+        
       </div>
     </div>
     <script src="js/dashboard.js"></script>

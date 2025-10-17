@@ -23,13 +23,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
   displayUserInfo(userData);
   setupEventListeners();
-  initializeDashboard();
+  initializeDashboard(); // Llama a la función que usa los minutos guardados
 
   if (userData.role === "student") {
     console.log("Cargando dashboard de estudiante");
     document.getElementById("student-dashboard").style.display = "block";
     document.getElementById("tutor-dashboard").style.display = "none";
-    loadTutorsList(); // Carga la lista de tutores
+    loadTutorsList();
     loadStudentStats();
   } else if (userData.role === "tutor") {
     console.log("Cargando dashboard de tutor");
@@ -60,7 +60,6 @@ function setupEventListeners() {
       window.location.href = "index.html";
     });
 
-  // Añade un listener para los botones "Contactar" usando delegación de eventos
   const mainContent = document.querySelector(".main-content");
   if (mainContent) {
     mainContent.addEventListener("click", function (e) {
@@ -86,9 +85,14 @@ function setupEventListeners() {
 
 function initializeDashboard() {
   animateCounters("courses-count", 0, getRandomNumber(1, 5));
-  animateCounters("hours-count", 0, getRandomNumber(10, 50));
+  
+  // 🚨 CAMBIO CLAVE: Leer los minutos de estudio guardados
+  const totalMinutes = parseInt(localStorage.getItem('totalStudyMinutes') || '0');
+  
+  // Usamos el total de minutos guardado para el contador de "Horas/Minutos de Estudio"
+  animateCounters("hours-count", 0, totalMinutes); 
+  
   animateCounters("completed-count", 0, getRandomNumber(5, 20));
-  animateCounters("points-count", 0, getRandomNumber(100, 500));
 }
 
 function animateCounters(elementId, start, end) {

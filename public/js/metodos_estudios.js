@@ -1,6 +1,5 @@
-// public/js/metodos_estudio.js
+// public/js/metodos_estudios.js
 
-// Tiempos por defecto en segundos
 const STUDY_TIME = 25 * 60; // 25 minutos
 const BREAK_TIME = 5 * 60;  // 5 minutos
 
@@ -16,7 +15,7 @@ let pauseButton;
 let resetButton;
 let logoutButton;
 let toggleFullscreenBtn;
-let motivationalQuoteElement; // 🚨 NUEVA REFERENCIA: Para el mensaje
+let motivationalQuoteElement;
 
 // --- FUNCIÓN: Inicializa las referencias del DOM ---
 function initializeDOMReferences() {
@@ -27,8 +26,6 @@ function initializeDOMReferences() {
     resetButton = document.getElementById('reset-button');
     logoutButton = document.getElementById('logout-button');
     toggleFullscreenBtn = document.getElementById('toggle-fullscreen-btn'); 
-    
-    // 🚨 NUEVA LÍNEA: Referencia para el elemento donde irá la frase
     motivationalQuoteElement = document.getElementById('motivational-quote'); 
 }
 
@@ -41,8 +38,6 @@ document.addEventListener('DOMContentLoaded', function() {
     updateDisplay();
     setupPomodoroListeners(); 
     setupFullscreenListener(); 
-    
-    // 🚨 NUEVA LLAMADA: Cargar y mostrar la frase motivacional
     displayRandomMotivationalQuote(); 
 
     const sidebar = document.querySelector('.sidebar');
@@ -51,31 +46,25 @@ document.addEventListener('DOMContentLoaded', function() {
     mainContent.classList.remove('expanded');
 });
 
-// --- LÓGICA DE LA FRASE MOTIVACIONAL ---
-const MOTIVATIONAL_QUOTES = [
-    "La disciplina tarde o temprano vencerá a la inteligencia. ¡Concéntrate ahora!",
-    "Cada Pomodoro completado es un paso más cerca de tu meta. ¡Tú puedes!",
-    "No te rindas. El comienzo es siempre lo más difícil. ¡Dale con todo!",
-    "El secreto para salir adelante es empezar. ¡Tu futuro te espera!",
-    "La mejor forma de predecir el futuro es creándolo. ¡Crea el tuyo ahora!",
-    "Haz de cada descanso una recompensa merecida. ¡Estudia con intención!",
-    "El éxito no es la clave de la felicidad. La felicidad es la clave del éxito.",
-    "El esfuerzo de hoy es la recompensa de mañana. ¡Sé constante!",
-    "Transforma tu esfuerzo en resultados. ¡Estos 25 minutos son tuyos!",
-    "Empieza donde estás. Usa lo que tienes. Haz lo que puedes. ¡A por ello!",
-];
+// --- LÓGICA DE PERSISTENCIA Y CONTADOR ---
 
-function displayRandomMotivationalQuote() {
-    if (motivationalQuoteElement && MOTIVATIONAL_QUOTES.length > 0) {
-        // Genera un índice aleatorio entre 0 y la longitud del array - 1
-        const randomIndex = Math.floor(Math.random() * MOTIVATIONAL_QUOTES.length);
-        
-        // Muestra la frase seleccionada
-        motivationalQuoteElement.textContent = MOTIVATIONAL_QUOTES[randomIndex];
-    }
+function updateStudyMinutes(minutes) {
+    let totalMinutes = parseInt(localStorage.getItem('totalStudyMinutes') || '0');
+    totalMinutes += minutes;
+    localStorage.setItem('totalStudyMinutes', totalMinutes.toString());
 }
 
-// ... (El resto de las funciones: initializePage, displayUserInfo, updateDisplay, etc., van después)
+function calculateAndSaveElapsedMinutes() {
+    // Solo guardamos si el cronómetro estaba corriendo y era una fase de estudio
+    if (!isPaused && isStudying) { 
+        // El tiempo transcurrido es el tiempo original menos el tiempo restante, dividido por 60
+        const minutesStudied = Math.floor((STUDY_TIME - timeLeft) / 60);
+        
+        if (minutesStudied > 0) {
+            updateStudyMinutes(minutesStudied);
+        }
+    }
+}
 
 // --- LÓGICA DE INICIALIZACIÓN DE PÁGINA ---
 
@@ -107,8 +96,10 @@ function initializePage() {
 }
 
 function displayUserInfo(userData) {
+    const roleText = userData.role === 'student' ? 'Estudiante' : (userData.role === 'tutor' ? 'Tutor' : 'Admin');
+    
     document.getElementById('sidebar-user-name').textContent = userData.username || 'Usuario';
-    document.getElementById('sidebar-user-role').textContent = userData.role === 'student' ? 'Estudiante' : 'Tutor';
+    document.getElementById('sidebar-user-role').textContent = roleText;
     
     const userAvatar = document.getElementById('sidebar-user-avatar');
     if (userData.profile && userData.profile.firstName) {
@@ -116,6 +107,27 @@ function displayUserInfo(userData) {
         userAvatar.textContent = initials.toUpperCase();
     } else {
         userAvatar.textContent = userData.username.charAt(0).toUpperCase();
+    }
+}
+
+// --- LÓGICA DE LA FRASE MOTIVACIONAL ---
+const MOTIVATIONAL_QUOTES = [
+    "La disciplina tarde o temprano vencerá a la inteligencia. ¡Concéntrate ahora!",
+    "Cada Pomodoro completado es un paso más cerca de tu meta. ¡Tú puedes!",
+    "No te rindas. El comienzo es siempre lo más difícil. ¡Dale con todo!",
+    "El secreto para salir adelante es empezar. ¡Tu futuro te espera!",
+    "La mejor forma de predecir el futuro es creándolo. ¡Crea el tuyo ahora!",
+    "Haz de cada descanso una recompensa merecida. ¡Estudia con intención!",
+    "El éxito no es la clave de la felicidad. La felicidad es la clave del éxito.",
+    "El esfuerzo de hoy es la recompensa de mañana. ¡Sé constante!",
+    "Transforma tu esfuerzo en resultados. ¡Estos 25 minutos son tuyos!",
+    "Empieza donde estás. Usa lo que tienes. Haz lo que puedes. ¡A por ello!",
+];
+
+function displayRandomMotivationalQuote() {
+    if (motivationalQuoteElement && MOTIVATIONAL_QUOTES.length > 0) {
+        const randomIndex = Math.floor(Math.random() * MOTIVATIONAL_QUOTES.length);
+        motivationalQuoteElement.textContent = MOTIVATIONAL_QUOTES[randomIndex];
     }
 }
 
@@ -140,6 +152,7 @@ function updateDisplay() {
 
 function toggleTimer() {
     if (isPaused) {
+        // INICIAR LÓGICA
         isPaused = false;
         if (startButton) startButton.disabled = true;
         if (pauseButton) pauseButton.disabled = false;
@@ -150,6 +163,12 @@ function toggleTimer() {
         timer = setInterval(() => {
             if (timeLeft <= 0) {
                 clearInterval(timer);
+                
+                // 🚨 GUARDAR: Si se completa un ciclo de ESTUDIO, guarda los 25 minutos.
+                if (isStudying) {
+                    updateStudyMinutes(STUDY_TIME / 60); 
+                }
+                
                 isStudying = !isStudying;
                 timeLeft = isStudying ? STUDY_TIME : BREAK_TIME;
                 
@@ -163,7 +182,12 @@ function toggleTimer() {
         }, 1000);
         
     } else {
+        // PAUSAR LÓGICA
         clearInterval(timer);
+        
+        // 🚨 GUARDAR: Si se PAUSA un ciclo de ESTUDIO, guarda el tiempo transcurrido.
+        calculateAndSaveElapsedMinutes(); 
+        
         isPaused = true;
         if (startButton) startButton.disabled = false;
         if (pauseButton) pauseButton.disabled = true;
@@ -171,6 +195,9 @@ function toggleTimer() {
 }
 
 function resetTimer() {
+    // 🚨 GUARDAR: Si se REINICIA un ciclo de ESTUDIO, guarda el tiempo transcurrido.
+    calculateAndSaveElapsedMinutes(); 
+    
     clearInterval(timer);
     isStudying = true;
     isPaused = true;
