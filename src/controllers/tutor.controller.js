@@ -1,62 +1,49 @@
-// src/controllers/tutor.controller.js
-
 import { Tutor } from "../models/tutor.model.js";
 
-// OBTENER TODOS LOS TUTORES (Para Estudiantes)
+// === GET: Obtener todos los tutores disponibles (/api/tutors) ===
 export const getAllTutors = async (req, res) => {
-  try {
-    const tutors = await Tutor.find().select("profile subjects hourlyRate");
-    return res.status(200).json({ ok: true, data: tutors });
-  } catch (error) {
-    return res.status(500).json({ ok: false, msg: "Error en el servidor." });
-  }
+    try {
+        // Busca todos los documentos en la colección de tutores
+        // Excluye la contraseña y la versión key (__v)
+        const tutors = await Tutor.find(
+            {}, 
+            { 
+                password: 0, 
+                __v: 0,
+            } 
+        ); 
+        
+        if (!tutors || tutors.length === 0) {
+            return res.status(404).json({ 
+                ok: false, 
+                message: "No se encontraron tutores disponibles." 
+            });
+        }
+
+        // Devuelve la lista completa de tutores con todos sus datos públicos
+        return res.status(200).json({ ok: true, data: tutors });
+    } catch (error) {
+        console.error("Error fetching all tutors:", error);
+        return res.status(500).json({ 
+            ok: false, 
+            message: "Error interno del servidor al obtener tutores." 
+        });
+    }
 };
 
-// OBTENER PERFIL PÚBLICO DE UN TUTOR POR ID
+// === GET: Obtener un tutor por ID (Para perfil individual) ===
 export const getTutorById = async (req, res) => {
-  try {
-    const tutor = await Tutor.findById(req.params.id).select("-password");
-    if (!tutor)
-      return res.status(404).json({ ok: false, msg: "Tutor no encontrado." });
-    return res.status(200).json({ ok: true, data: tutor });
-  } catch (error) {
-    return res.status(500).json({ ok: false, msg: "Error en el servidor." });
-  }
-};
+    try {
+        const { id } = req.params;
+        const tutor = await Tutor.findById(id).select('-password -__v');
 
-// OBTENER EL PERFIL DEL TUTOR QUE HA INICIADO SESIÓN
-export const getMyProfile = async (req, res) => {
-  try {
-    const tutorProfile = await Tutor.findById(req.user.id).select("-password");
-    if (!tutorProfile)
-      return res.status(404).json({ ok: false, msg: "Perfil no encontrado." });
-    return res.status(200).json({ ok: true, data: tutorProfile });
-  } catch (error) {
-    return res.status(500).json({ ok: false, msg: "Error en el servidor." });
-  }
-};
+        if (!tutor) {
+            return res.status(404).json({ ok: false, message: "Tutor no encontrado." });
+        }
 
-// ACTUALIZAR EL PERFIL DEL TUTOR
-export const updateMyProfile = async (req, res) => {
-  try {
-    const { profile, subjects, hourlyRate } = req.body;
-    // Actualizamos el perfil anidado de forma segura
-    const updateData = {
-      "profile.biography": profile.biography,
-      subjects,
-      hourlyRate,
-    };
-    const updatedTutor = await Tutor.findByIdAndUpdate(
-      req.user.id,
-      updateData,
-      { new: true }
-    );
-    return res
-      .status(200)
-      .json({ ok: true, msg: "Perfil actualizado.", data: updatedTutor });
-  } catch (error) {
-    return res
-      .status(500)
-      .json({ ok: false, msg: "Error al actualizar el perfil." });
-  }
+        return res.status(200).json({ ok: true, data: tutor });
+    } catch (error) {
+        console.error("Error fetching tutor by ID:", error);
+        return res.status(500).json({ ok: false, message: "Error interno del servidor." });
+    }
 };

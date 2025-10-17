@@ -21,7 +21,7 @@ function toggleTutorFields() {
     role === "tutor" ? "block" : "none";
 }
 
-// --- Lógica de Login (Corregida) ---
+// --- Lógica de Login ---
 document.getElementById("login-form").addEventListener("submit", async (e) => {
   e.preventDefault();
   const username = document.getElementById("login-username").value;
@@ -35,10 +35,13 @@ document.getElementById("login-form").addEventListener("submit", async (e) => {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ username, password }),
+      credentials: "include"
     });
     const data = await response.json();
+    
     if (response.ok) {
-      // Guardar datos del usuario en localStorage para usarlos en dashboard
+      // Asumimos que data.data contiene la información del usuario
+      // El token HttpOnly es manejado por el navegador.
       localStorage.setItem('userData', JSON.stringify(data.data));
       window.location.href = "dashboard.html";
     } else {
@@ -52,7 +55,7 @@ document.getElementById("login-form").addEventListener("submit", async (e) => {
   }
 });
 
-// --- Lógica de Registro (Corregida) ---
+// --- Lógica de Registro ---
 document
   .getElementById("register-form")
   .addEventListener("submit", async (e) => {
@@ -85,17 +88,14 @@ document
     }
 
     try {
-      console.log("Enviando datos de registro:", body);
       const response = await fetch(`${API_URL}/register/${body.role}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
-        credentials: "include" // Importante para manejar cookies
+        credentials: "include" 
       });
       
-      console.log("Respuesta del servidor:", response);
       const data = await response.json();
-      console.log("Datos recibidos:", data);
       
       if (response.ok) {
         // Guardar datos del usuario en localStorage para usarlos en dashboard

@@ -1,7 +1,8 @@
 // public/js/cursos.js
 
+const API_URL = "/api";
+
 document.addEventListener('DOMContentLoaded', function() {
-    // Cargar datos del usuario desde localStorage
     let userData;
     try {
         userData = JSON.parse(localStorage.getItem('userData'));
@@ -15,34 +16,35 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
     }
     
-    // Mostrar información del usuario en el sidebar
     displayUserInfo(userData);
     
-    // Cargar cursos
-    loadCourses();
+    // Cargar solo los cursos asociados a contactos con los que ya se ha interactuado
+    loadActiveCourses(); 
     
-    // Configurar eventos de búsqueda y filtrado
     setupSearchAndFilter();
     
-    // Configurar botón de logout
     document.getElementById('logout-button').addEventListener('click', function() {
-        localStorage.removeItem('userData');
-        window.location.href = "index.html";
+        fetch('/api/logout', { method: "POST", credentials: "include" })
+            .finally(() => {
+                localStorage.removeItem('userData');
+                window.location.href = "index.html";
+            });
     });
 
-    // Descolapsar sidebar al entrar (asegura el estado normal)
     const sidebar = document.querySelector('.sidebar');
     const mainContent = document.querySelector('.main-content');
     sidebar.classList.remove('collapsed');
     mainContent.classList.remove('expanded');
 });
 
+// --- FUNCIONES DE UTILIDAD ---
+
 function displayUserInfo(userData) {
-    // Mostrar nombre de usuario y rol en el sidebar
-    document.getElementById('sidebar-user-name').textContent = userData.username || 'Usuario';
-    document.getElementById('sidebar-user-role').textContent = userData.role === 'student' ? 'Estudiante' : 'Tutor';
+    const roleText = userData.role === 'student' ? 'Estudiante' : (userData.role === 'tutor' ? 'Tutor' : 'Admin');
     
-    // Mostrar iniciales en el avatar
+    document.getElementById('sidebar-user-name').textContent = userData.username || 'Usuario';
+    document.getElementById('sidebar-user-role').textContent = roleText;
+    
     const userAvatar = document.getElementById('sidebar-user-avatar');
     if (userData.profile && userData.profile.firstName) {
         const initials = `${userData.profile.firstName.charAt(0)}${userData.profile.lastName ? userData.profile.lastName.charAt(0) : ''}`;
@@ -52,67 +54,68 @@ function displayUserInfo(userData) {
     }
 }
 
-function loadCourses() {
-    // Cargar cursos guardados desde localStorage o usar cursos de ejemplo
-    let courses = JSON.parse(localStorage.getItem('userCourses') || '[]');
-    
-    // Si no hay cursos guardados, usar cursos de ejemplo
-    if (courses.length === 0) {
-        courses = [
-            {
-                id: 1,
-                title: 'Introducción a la Programación',
-                tutor: 'María González',
-                duration: '8 semanas',
-                progress: 75,
-                image: 'https://via.placeholder.com/300x160/4361ee/ffffff?text=Programación',
-                status: 'in-progress'
-            },
-            {
-                id: 2,
-                title: 'Matemáticas Avanzadas',
-                tutor: 'Carlos Rodríguez',
-                duration: '12 semanas',
-                progress: 100,
-                image: 'https://via.placeholder.com/300x160/3a0ca3/ffffff?text=Matemáticas',
-                status: 'completed'
-            },
-            {
-                id: 3,
-                title: 'Física Cuántica',
-                tutor: 'Ana Martínez',
-                duration: '10 semanas',
-                progress: 0,
-                image: 'https://via.placeholder.com/300x160/4cc9f0/ffffff?text=Física',
-                status: 'not-started'
-            },
-            {
-                id: 4,
-                title: 'Desarrollo Web Frontend',
-                tutor: 'Pedro Sánchez',
-                duration: '6 semanas',
-                progress: 30,
-                image: 'https://via.placeholder.com/300x160/f72585/ffffff?text=Web+Frontend',
-                status: 'in-progress'
-            }
-        ];
-        
-        // Guardar cursos de ejemplo en localStorage
-        localStorage.setItem('userCourses', JSON.stringify(courses));
+function getStatusText(status) {
+    switch(status) {
+        case 'in-progress': return 'Clase Activa';
+        case 'completed': return 'Clase Finalizada';
+        case 'not-started': return 'Pendiente de inicio';
+        default: return 'Desconocido';
     }
+}
+
+// --- LÓGICA DE CARGA Y FILTRADO ---
+
+async function loadActiveCourses() {
+    const courseContainer = document.getElementById('course-container');
+    courseContainer.innerHTML = '<p class="text-center">Cargando tus clases...</p>';
+
+    // 1. OBTENER CONTACTOS REALES DESDE LOCALSTORAGE
+    const activeContacts = getActiveContactsFromStorage(); 
     
-    // Mostrar cursos en la interfaz
-    displayCourses(courses);
+    if (activeContacts.length === 0) {
+        courseContainer.innerHTML = `
+            <div style="text-align: center; padding: 2rem;">
+                <h3 style="color: #4361ee;">¡Parece que no tienes clases activas!</h3>
+                <p style="color: #6c757d;">
+                    Visita el <a href="dashboard.html" style="color: #4cc9f0; font-weight: bold;">Dashboard</a> para encontrar y contactar nuevos tutores.
+                </p>
+            </div>
+        `;
+        return;
+    }
+
+    // 2. Mapear los contactos reales a la estructura de la tarjeta de clase
+    const activeCourses = activeContacts.map(contact => ({
+        id: contact.id,
+        title: `Clase con ${contact.name}`, 
+        tutor: contact.name,
+        progress: contact.progress || Math.floor(Math.random() * 80) + 20, 
+        status: 'in-progress',
+        image: contact.image || 'https://via.placeholder.com/300x160/4361ee/ffffff?text=Clase+Activa', 
+        tutorId: contact.tutorId 
+    }));
+
+    displayCourses(activeCourses);
+}
+
+// FUNCIÓN CLAVE: Lee los contactos del chat
+function getActiveContactsFromStorage() {
+    const storedContacts = localStorage.getItem('userContacts');
+    if (!storedContacts) return [];
+    
+    try {
+        const contacts = JSON.parse(storedContacts);
+        // Filtramos solo los que son tutores o usuarios reales (no de 'Sistema')
+        return contacts.filter(c => c.role !== 'Sistema'); 
+    } catch (e) {
+        console.error("Error al parsear contactos del localStorage:", e);
+        return [];
+    }
 }
 
 function displayCourses(courses) {
     const courseContainer = document.getElementById('course-container');
     courseContainer.innerHTML = '';
-    
-    if (courses.length === 0) {
-        courseContainer.innerHTML = '<p class="text-center">No se encontraron cursos.</p>';
-        return;
-    }
     
     courses.forEach(course => {
         const courseCard = document.createElement('div');
@@ -125,7 +128,6 @@ function displayCourses(courses) {
                 <h3 class="course-title">${course.title}</h3>
                 <div class="course-info">
                     <span><i class="fas fa-user-tie"></i> ${course.tutor}</span>
-                    <span><i class="fas fa-clock"></i> ${course.duration}</span>
                 </div>
                 <div class="course-progress">
                     <div class="progress-bar">
@@ -137,8 +139,9 @@ function displayCourses(courses) {
                     </div>
                 </div>
                 <div class="course-actions">
-                    <a href="#" class="btn btn-primary">Continuar</a>
-                    <a href="#" class="btn btn-outline">Detalles</a>
+                    <a href="mensajes.html?contact=${encodeURIComponent(course.tutor)}" class="btn btn-primary">
+                       <i class="fas fa-comment"></i> Continuar Chat
+                    </a>
                 </div>
             </div>
         `;
@@ -147,25 +150,24 @@ function displayCourses(courses) {
     });
 }
 
-function getStatusText(status) {
-    switch(status) {
-        case 'in-progress': return 'En progreso';
-        case 'completed': return 'Completado';
-        case 'not-started': return 'No iniciado';
-        default: return 'Desconocido';
-    }
-}
-
 function setupSearchAndFilter() {
     const searchInput = document.getElementById('course-search');
     const filterSelect = document.getElementById('course-filter');
     
-    // Función para filtrar cursos
     function filterCourses() {
         const searchTerm = searchInput.value.toLowerCase();
         const filterValue = filterSelect.value;
         
-        const courses = JSON.parse(localStorage.getItem('userCourses') || '[]');
+        const contacts = getActiveContactsFromStorage();
+
+        const courses = contacts.map(contact => ({
+            id: contact.id,
+            title: `Clase con ${contact.name}`,
+            tutor: contact.name,
+            progress: contact.progress || 50, 
+            status: 'in-progress', 
+            image: contact.image || 'https://via.placeholder.com/300x160/4361ee/ffffff?text=Clase+Activa',
+        }));
         
         const filteredCourses = courses.filter(course => {
             const matchesSearch = course.title.toLowerCase().includes(searchTerm) || 
@@ -179,7 +181,6 @@ function setupSearchAndFilter() {
         displayCourses(filteredCourses);
     }
     
-    // Configurar eventos
     searchInput.addEventListener('input', filterCourses);
     filterSelect.addEventListener('change', filterCourses);
 }
