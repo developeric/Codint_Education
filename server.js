@@ -6,8 +6,8 @@ import "dotenv/config"
 import cookieParser from "cookie-parser";
 import { dbConnection } from "./src/config/database.js";
 import open from 'open';
-import path from 'path'; // 💡 1. NUEVA IMPORTACIÓN: Importar 'path'
-import { fileURLToPath } from 'url'; // 💡 2. NUEVA IMPORTACIÓN: Para manejar __dirname en ES Modules
+import path from 'path'; 
+import { fileURLToPath } from 'url'; 
 
 // Importa todas tus rutas
 import authRoutes from "./src/routes/auth.routes.js";
@@ -32,26 +32,28 @@ app.use(cors(corsOptions));
 app.use(express.json()); 
 app.use(cookieParser()); 
 
-// 💡 3. CAMBIO CRÍTICO: MIDDLEWARE PARA SERVIR ARCHIVOS ESTÁTICOS
-// Esto le dice a Express que la carpeta 'public' contiene archivos servibles.
-app.use(express.static(path.join(__dirname, '..', 'public')));
+// 🚨 CORRECCIÓN CLAVE: El path a 'public' no necesita '..'
+app.use(express.static(path.join(__dirname, 'public'))); // Cambiado de '..', 'public' a solo 'public'
 
 // --- Rutas de la API ---
-// Estas rutas solo se activan cuando la URL empieza por /api
 app.use("/api", authRoutes);
 app.use("/api", tutorRoutes);
 app.use("/api", userRoutes);
 
+// 💡 MEJORA: Agregar una ruta explícita para la raíz (/) para asegurar el index.html
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
 // --- Iniciar el servidor ---
 const PORT = process.env.PORT;
-const BACKEND_URL = `http://localhost:${PORT}`; // URL del backend
-// La URL de apertura debe apuntar al índice servido por el backend:
-const FRONTEND_URL = `${BACKEND_URL}/index.html`; 
+const BACKEND_URL = `http://localhost:${PORT}`;
+// Cambiamos la URL de apertura para que solo sea la raíz (/)
+const FRONTEND_URL = `${BACKEND_URL}/`; 
 
 app.listen(PORT, async () => { 
   console.log(`✅ Servidor corriendo en ${BACKEND_URL}`);
   
-  // Código añadido: Abrir el navegador automáticamente
   try {
       console.log(`Abriendo frontend en ${FRONTEND_URL}...`);
       await open(FRONTEND_URL);
