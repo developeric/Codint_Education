@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard del Tutor | Plataforma de Tutoría Inteligente</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="styles/tutor-dashboard.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/tutor-dashboard.js" defer></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar de navegación -->
+        <nav class="sidebar">
+            <div class="logo">
+                <img src="../public/assets/logo.svg" alt="Logo de la plataforma" onerror="this.src='../assets/logo.svg'">
+                <h2>EduTutor</h2>
+            </div>
+            <ul class="nav-links">
+                <li class="active"><a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                <li><a href="estudiantes.html"><i class="fas fa-user-graduate"></i> Mis Estudiantes</a></li>
+                <li><a href="sesiones.html"><i class="fas fa-calendar-alt"></i> Sesiones</a></li>
+                <li><a href="recursos.html"><i class="fas fa-book"></i> Recursos</a></li>
+                <li><a href="mensajes.html"><i class="fas fa-comments"></i> Mensajes</a></li>
+                <li><a href="perfil.html"><i class="fas fa-user-circle"></i> Mi Perfil</a></li>
+            </ul>
+            <div class="logout">
+                <a href="../index.html"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
+            </div>
+        </nav>
+
+        <!-- Contenido principal -->
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Buscar estudiantes, recursos...">
+                </div>
+                <div class="user-info">
+                    <div class="notifications">
+                        <i class="fas fa-bell"></i>
+                        <span class="badge">3</span>
+                    </div>
+                    <div class="profile">
+                        <img src="../public/assets/profile-placeholder.jpg" alt="Foto de perfil" onerror="this.src='https://via.placeholder.com/40'">
+                        <span>Profesor García</span>
+                    </div>
+                </div>
+            </header>
+
+            <div class="dashboard-content">
+                <h1>Bienvenido, Profesor García</h1>
+                <p class="date">Hoy es <span id="current-date"></span></p>
+
+                <div class="stats-container">
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-user-graduate"></i></div>
+                        <div class="stat-info">
+                            <h3>12</h3>
+                            <p>Estudiantes Activos</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-calendar-check"></i></div>
+                        <div class="stat-info">
+                            <h3>8</h3>
+                            <p>Sesiones Programadas</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-clock"></i></div>
+                        <div class="stat-info">
+                            <h3>24h</h3>
+                            <p>Horas Impartidas</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-star"></i></div>
+                        <div class="stat-info">
+                            <h3>4.8</h3>
+                            <p>Calificación Promedio</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-grid">
+                    <!-- Próximas sesiones -->
+                    <div class="dashboard-card upcoming-sessions">
+                        <div class="card-header">
+                            <h2>Próximas Sesiones</h2>
+                            <a href="sesiones.html" class="view-all">Ver todas</a>
+                        </div>
+                        <div class="card-content">
+                            <div class="session-item">
+                                <div class="session-time">
+                                    <span class="day">Hoy</span>
+                                    <span class="hour">15:00</span>
+                                </div>
+                                <div class="session-info">
+                                    <h4>Ana Martínez</h4>
+                                    <p>Matemáticas: Ecuaciones diferenciales</p>
+                                </div>
+                                <div class="session-actions">
+                                    <button class="start-session">Iniciar</button>
+                                    <button class="reschedule">Reprogramar</button>
+                                </div>
+                            </div>
+                            <div class="session-item">
+                                <div class="session-time">
+                                    <span class="day">Mañana</span>
+                                    <span class="hour">17:00</span>
+                                </div>
+                                <div class="session-info">
+                                    <h4>Carlos López</h4>
+                                    <p>Matemáticas: Álgebra lineal</p>
+                                </div>
+                                <div class="session-actions">
+                                    <button class="start-session">Iniciar</button>
+                                    <button class="reschedule">Reprogramar</button>
+                                </div>
+                            </div>
+                            <div class="session-item">
+                                <div class="session-time">
+                                    <span class="day">Mañana</span>
+                                    <span class="hour">10:30</span>
+                                </div>
+                                <div class="session-info">
+                                    <h4>Física Cuántica</h4>
+                                    <p>Estudiante: Carlos López</p>
+                                </div>
+                                <div class="session-actions">
+                                    <button class="btn-primary">Iniciar</button>
+                                    <button class="btn-secondary">Reprogramar</button>
+                                </div>
+                            </div>
+                            <div class="session-item">
+                                <div class="session-time">
+                                    <span class="day">Jueves</span>
+                                    <span class="hour">16:15</span>
+                                </div>
+                                <div class="session-info">
+                                    <h4>Programación en Python</h4>
+                                    <p>Estudiante: Miguel Sánchez</p>
+                                </div>
+                                <div class="session-actions">
+                                    <button class="btn-primary">Iniciar</button>
+                                    <button class="btn-secondary">Reprogramar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Estudiantes que requieren atención -->
+                    <div class="dashboard-card students-attention">
+                        <div class="card-header">
+                            <h2>Estudiantes que Requieren Atención</h2>
+                            <a href="estudiantes.html" class="view-all">Ver todos</a>
+                        </div>
+                        <div class="card-content">
+                            <div class="student-item">
+                                <img src="../assets/student1.jpg" alt="Foto de estudiante">
+                                <div class="student-info">
+                                    <h4>Laura Gómez</h4>
+                                    <p>Bajo rendimiento en últimos ejercicios</p>
+                                    <div class="progress-bar">
+                                        <div class="progress" style="width: 35%;"></div>
+                                    </div>
+                                </div>
+                                <button class="btn-primary">Contactar</button>
+                            </div>
+                            <div class="student-item">
+                                <img src="../assets/student2.jpg" alt="Foto de estudiante">
+                                <div class="student-info">
+                                    <h4>Pedro Ramírez</h4>
+                                    <p>No ha completado tareas recientes</p>
+                                    <div class="progress-bar">
+                                        <div class="progress" style="width: 45%;"></div>
+                                    </div>
+                                </div>
+                                <button class="btn-primary">Contactar</button>
+                            </div>
+                            <div class="student-item">
+                                <img src="../assets/student3.jpg" alt="Foto de estudiante">
+                                <div class="student-info">
+                                    <h4>Sofía Torres</h4>
+                                    <p>Solicitud de ayuda adicional</p>
+                                    <div class="progress-bar">
+                                        <div class="progress" style="width: 60%;"></div>
+                                    </div>
+                                </div>
+                                <button class="btn-primary">Contactar</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Mensajes recientes -->
+                    <div class="dashboard-card recent-messages">
+                        <div class="card-header">
+                            <h2>Mensajes de Estudiantes</h2>
+                            <a href="mensajes.html" class="view-all">Ver todos</a>
+                        </div>
+                        <div class="card-content">
+                            <div class="message-item unread">
+                                <img src="../assets/student4.jpg" alt="Foto de estudiante">
+                                <div class="message-info">
+                                    <h4>Javier Rodríguez</h4>
+                                    <p>Tengo dudas sobre el último tema que vimos...</p>
+                                    <span class="message-time">Hace 30 min</span>
+                                </div>
+                            </div>
+                            <div class="message-item unread">
+                                <img src="../assets/student5.jpg" alt="Foto de estudiante">
+                                <div class="message-info">
+                                    <h4>María Fernández</h4>
+                                    <p>¿Podríamos tener una sesión extra esta semana?</p>
+                                    <span class="message-time">Hace 2 horas</span>
+                                </div>
+                            </div>
+                            <div class="message-item">
+                                <img src="../assets/student6.jpg" alt="Foto de estudiante">
+                                <div class="message-info">
+                                    <h4>Daniel Morales</h4>
+                                    <p>Gracias por la clase de ayer, me fue muy útil...</p>
+                                    <span class="message-time">Ayer</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Rendimiento de estudiantes -->
+                    <div class="dashboard-card student-performance">
+                        <div class="card-header">
+                            <h2>Rendimiento de Estudiantes</h2>
+                            <div class="chart-filters">
+                                <button class="active">Semanal</button>
+                                <button>Mensual</button>
+                                <button>Trimestral</button>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <div class="chart-container">
+                                <canvas id="performance-chart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/tutor-dashboard.js"></script>
+</body>
+</html>

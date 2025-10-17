@@ -32,8 +32,9 @@ app.use(cors(corsOptions));
 app.use(express.json()); 
 app.use(cookieParser()); 
 
-// 🚨 CORRECCIÓN CLAVE: El path a 'public' no necesita '..'
-app.use(express.static(path.join(__dirname, 'public'))); // Cambiado de '..', 'public' a solo 'public'
+// Servir archivos estáticos desde las carpetas public y tutor
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname)));
 
 // --- Rutas de la API ---
 app.use("/api", authRoutes);

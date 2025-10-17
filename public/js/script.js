@@ -1,27 +1,18 @@
-// public/js/script.js
-
 const API_URL = "http://localhost:3005/api";
 
 function openTab(evt, tabName) {
-  document
-    .querySelectorAll(".tab-content")
-    .forEach((tab) => (tab.style.display = "none"));
-  document
-    .querySelectorAll(".tab-link")
-    .forEach((link) => link.classList.remove("active"));
+  document.querySelectorAll(".tab-content").forEach((tab) => (tab.style.display = "none"));
+  document.querySelectorAll(".tab-link").forEach((link) => link.classList.remove("active"));
   document.getElementById(tabName).style.display = "block";
   evt.currentTarget.classList.add("active");
 }
 
 function toggleTutorFields() {
-  const role = document.querySelector(
-    'input[name="register-role"]:checked'
-  ).value;
-  document.getElementById("tutor-fields").style.display =
-    role === "tutor" ? "block" : "none";
+  const role = document.querySelector('input[name="register-role"]:checked').value;
+  document.getElementById("tutor-fields").style.display = role === "tutor" ? "block" : "none";
 }
 
-// --- Lógica de Login (Corregida) ---
+// --- Lógica de Login (CON REDIRECCIÓN POR ROL) ---
 document.getElementById("login-form").addEventListener("submit", async (e) => {
   e.preventDefault();
   const username = document.getElementById("login-username").value;
@@ -38,13 +29,17 @@ document.getElementById("login-form").addEventListener("submit", async (e) => {
     });
     const data = await response.json();
     if (response.ok) {
-      // Guardar datos del usuario en localStorage para usarlos en dashboard
+      // Guardamos los datos del usuario para usarlos en las otras vistas
       localStorage.setItem('userData', JSON.stringify(data.data));
-      window.location.href = "dashboard.html";
+      
+      // Redirigimos según el rol del usuario
+      if (data.data.role === 'tutor') {
+        window.location.href = "tutor/dashboard.html";
+      } else {
+        window.location.href = "dashboard.html";
+      }
     } else {
-      const firstError = data.errors
-        ? Object.values(data.errors)[0].msg
-        : data.msg;
+      const firstError = data.errors ? Object.values(data.errors)[0].msg : data.msg;
       errorMessage.textContent = firstError || "Credenciales incorrectas.";
     }
   } catch (error) {
@@ -52,15 +47,12 @@ document.getElementById("login-form").addEventListener("submit", async (e) => {
   }
 });
 
-// --- Lógica de Registro (Corregida) ---
-document
-  .getElementById("register-form")
-  .addEventListener("submit", async (e) => {
+// --- Lógica de Registro (Sin cambios, pero completa aquí) ---
+document.getElementById("register-form").addEventListener("submit", async (e) => {
     e.preventDefault();
     const errorMessage = document.getElementById("error-message");
     errorMessage.textContent = "";
 
-    // Construimos el cuerpo de la solicitud manualmente
     const body = {
       username: document.getElementById("register-username").value,
       email: document.getElementById("register-email").value,
@@ -73,38 +65,31 @@ document
     };
 
     if (body.role === "tutor") {
-      body.subjects = document
-        .getElementById("register-subjects")
-        .value.split(",")
-        .map((s) => s.trim())
-        .filter(Boolean);
+      body.subjects = document.getElementById("register-subjects").value.split(",").map((s) => s.trim()).filter(Boolean);
       const hourlyRate = document.getElementById("register-hourlyRate").value;
-      if (hourlyRate) {
-        body.hourlyRate = parseFloat(hourlyRate);
-      }
+      if (hourlyRate) body.hourlyRate = parseFloat(hourlyRate);
     }
 
     try {
-      console.log("Enviando datos de registro:", body);
       const response = await fetch(`${API_URL}/register/${body.role}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
-        credentials: "include" // Importante para manejar cookies
+        credentials: "include"
       });
       
-      console.log("Respuesta del servidor:", response);
       const data = await response.json();
-      console.log("Datos recibidos:", data);
       
       if (response.ok) {
-        // Guardar datos del usuario en localStorage para usarlos en dashboard
         localStorage.setItem('userData', JSON.stringify(data.data));
-        window.location.href = "dashboard.html";
+        // Redirigimos según el rol del usuario
+         if (data.data.role === 'tutor') {
+           window.location.href = "tutor/dashboard.html";
+         } else {
+           window.location.href = "dashboard.html";
+         }
       } else {
-        const firstError = data.errors
-          ? Object.values(data.errors)[0].msg
-          : data.msg;
+        const firstError = data.errors ? Object.values(data.errors)[0].msg : data.msg;
         errorMessage.textContent = firstError || "Error en el registro.";
       }
     } catch (error) {

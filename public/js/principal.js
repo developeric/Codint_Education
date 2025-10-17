@@ -1,151 +1,57 @@
-// public/js/principal.js
-
 const API_URL = "http://localhost:3005/api";
 
-// --- INICIALIZACIÓN DE LA PÁGINA ---
 document.addEventListener("DOMContentLoaded", () => {
-  // Al cargar la página, verificamos quién es el usuario
-  initializeDashboard();
+  initializeTutorDashboard();
 });
 
-async function initializeDashboard() {
+async function initializeTutorDashboard() {
   try {
-    // Pedimos al backend el perfil del usuario autenticado
-    const response = await fetch(`${API_URL}/users/me`, {
-      credentials: "include",
-    });
-
-    if (!response.ok) {
-      // Si el token no es válido o no existe, redirigimos al login
-      window.location.href = "index.html";
-      return;
-    }
-
+    // Verificamos quién es el usuario llamando a la ruta /users/me
+    const response = await fetch(`${API_URL}/users/me`, { credentials: "include" });
+    if (!response.ok) throw new Error('No autorizado');
+    
     const result = await response.json();
     const user = result.data;
 
-    // Mostramos el panel correcto según el rol del usuario
-    showDashboard(user.role, user);
+    // Si el usuario no es un tutor, lo sacamos de aquí
+    if (user.role !== 'tutor') {
+        window.location.href = "dashboard.html"; // Lo mandamos al dashboard de estudiante
+        return;
+    }
+
+    // Si es un tutor, poblamos la página con su información
+    document.getElementById("welcome-message").textContent = `Bienvenido, Tutor ${user.profile.firstName}`;
+    loadTutorProfile(user);
+    
+    // Agregamos la funcionalidad de ver solicitudes de estudiantes
+    loadStudentRequests();
+
   } catch (error) {
     console.error("Error de inicialización:", error);
-    window.location.href = "index.html"; // Redirigir si hay error
+    window.location.href = "index.html"; // Si hay cualquier error, al login
   }
 }
 
-function showDashboard(userRole, userData) {
-  document.getElementById(
-    "welcome-message"
-  ).textContent = `Bienvenido, ${userData.profile.firstName}`;
-
-  if (userRole === "student") {
-    document.getElementById("student-dashboard").style.display = "block";
-    fetchAndDisplayTutors();
-  } else if (userRole === "tutor") {
-    document.getElementById("tutor-dashboard").style.display = "block";
-    loadTutorProfile(userData);
-  }
-}
-
-// --- FUNCIONALIDADES (movidas desde script.js) ---
-
-// (Aquí van las funciones: fetchAndDisplayTutors, showTutorDetails, closeTutorModal, loadTutorProfile, el listener del formulario de tutor y el listener del botón de logout)
-// ... Pega aquí TODO el contenido de las funciones que estaban en el script.js anterior, desde "async function fetchAndDisplayTutors..." hasta el final del listener de "logout-button".
-// Te dejo una versión completa para que la copies directamente:
-
-async function fetchAndDisplayTutors() {
-  const tutorListContainer = document.getElementById("tutor-list");
-  tutorListContainer.innerHTML = "<p>Cargando tutores...</p>";
-  try {
-    const response = await fetch(`${API_URL}/tutors`, {
-      credentials: "include",
-    });
-    const result = await response.json();
-    if (!response.ok || !result.ok) throw new Error(result.msg);
-    if (!result.data || result.data.length === 0) {
-      tutorListContainer.innerHTML = "<p>No hay tutores disponibles.</p>";
-      return;
-    }
-    tutorListContainer.innerHTML = "";
-    result.data.forEach((tutor) => {
-      const tutorCard = document.createElement("div");
-      tutorCard.className = "tutor-card";
-      tutorCard.onclick = () => showTutorDetails(tutor._id);
-      tutorCard.innerHTML = `<h4>${tutor.profile.firstName} ${
-        tutor.profile.lastName
-      }</h4><p>Tarifa: <strong>$${
-        tutor.hourlyRate || 0
-      }/hora</strong></p><div class="tutor-subjects">${tutor.subjects
-        .map((s) => `<span class="subject-tag">${s}</span>`)
-        .join("")}</div>`;
-      tutorListContainer.appendChild(tutorCard);
-    });
-  } catch (error) {
-    tutorListContainer.innerHTML = `<p class="error-message">${
-      error.message || "Error de conexión."
-    }</p>`;
-  }
-}
-
-async function showTutorDetails(tutorId) {
-  const modal = document.getElementById("tutor-modal");
-  const modalBody = document.getElementById("modal-body");
-  modalBody.innerHTML = "<p>Cargando perfil...</p>";
-  modal.style.display = "flex";
-  try {
-    const response = await fetch(`${API_URL}/tutors/${tutorId}`, {
-      credentials: "include",
-    });
-    const result = await response.json();
-    if (!response.ok) throw new Error(result.msg);
-    const tutor = result.data;
-    modalBody.innerHTML = `<h3>${tutor.profile.firstName} ${
-      tutor.profile.lastName
-    }</h3><p><strong>Biografía:</strong> ${
-      tutor.profile.biography || "No especificada."
-    }</p><p><strong>Tarifa:</strong> $${
-      tutor.hourlyRate
-    }/hora</p><p><strong>Materias:</strong></p><div class="tutor-subjects">${tutor.subjects
-      .map((s) => `<span class="subject-tag">${s}</span>`)
-      .join("")}</div>`;
-  } catch (error) {
-    modalBody.innerHTML = `<p class="error-message">${error.message}</p>`;
-  }
-}
-
-function closeTutorModal() {
-  document.getElementById("tutor-modal").style.display = "none";
-}
-
+// Carga los datos del tutor en el formulario de edición
 function loadTutorProfile(tutor) {
-  document.getElementById("edit-biography").value =
-    tutor.profile.biography || "";
+  document.getElementById("edit-biography").value = tutor.profile.biography || "";
   document.getElementById("edit-subjects").value = tutor.subjects.join(", ");
-  document.getElementById("edit-hourlyRate").value = tutor.hourlyRate;
+  document.getElementById("edit-hourlyRate").value = tutor.hourlyRate || 0;
 }
 
-document
-  .getElementById("edit-tutor-profile-form")
-  .addEventListener("submit", async (e) => {
+// Event listener para el formulario de actualización del perfil
+document.getElementById("edit-tutor-profile-form").addEventListener("submit", async (e) => {
     e.preventDefault();
     const successMessage = document.getElementById("tutor-success-message");
-    const errorMessage = document.getElementById("error-message") || {
-      textContent: "",
-    }; // Fallback
-    successMessage.textContent = "";
-    errorMessage.textContent = "";
+    successMessage.textContent = "Guardando...";
 
-    const profile = {
-      biography: document.getElementById("edit-biography").value,
-    };
-    const subjects = document
-      .getElementById("edit-subjects")
-      .value.split(",")
-      .map((s) => s.trim())
-      .filter(Boolean);
+    const profile = { biography: document.getElementById("edit-biography").value };
+    const subjects = document.getElementById("edit-subjects").value.split(",").map((s) => s.trim()).filter(Boolean);
     const hourlyRate = document.getElementById("edit-hourlyRate").value;
 
     try {
-      const response = await fetch(`${API_URL}/tutors/me/profile`, {
+      // Necesitamos una ruta en el backend para actualizar, ej: /api/tutors/me
+      const response = await fetch(`${API_URL}/tutors/me`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
@@ -155,17 +61,68 @@ document
       if (!response.ok) throw new Error(result.msg);
       successMessage.textContent = "¡Perfil actualizado con éxito!";
     } catch (error) {
-      errorMessage.textContent = error.message;
+      successMessage.textContent = `Error: ${error.message}`;
+      successMessage.style.color = 'red';
     }
-  });
+});
 
+// NUEVA FUNCIONALIDAD: Cargar solicitudes de estudiantes
+async function loadStudentRequests() {
+    const requestsContainer = document.getElementById("student-requests-list");
+    if (!requestsContainer) return; // Si el elemento no existe, no hacemos nada
+
+    requestsContainer.innerHTML = "<p>Cargando solicitudes...</p>";
+    try {
+        // Necesitamos una ruta en el backend para ver las solicitudes, ej: /api/tutorias
+        const response = await fetch(`${API_URL}/tutorias`, { credentials: 'include' });
+        const result = await response.json();
+
+        if (!response.ok) throw new Error(result.msg);
+        
+        const pendingRequests = result.data.filter(req => req.status === 'pending');
+
+        if (pendingRequests.length === 0) {
+            requestsContainer.innerHTML = "<p>No hay solicitudes de estudiantes pendientes.</p>";
+            return;
+        }
+
+        requestsContainer.innerHTML = pendingRequests.map(req => `
+            <div class="request-card">
+                <h4>${req.subject}</h4>
+                <p><strong>Estudiante:</strong> ${req.student.profile.firstName}</p>
+                <p>${req.description}</p>
+                <button class="btn-accept" onclick="acceptRequest('${req._id}')">Aceptar Tutoría</button>
+            </div>
+        `).join('');
+    } catch (error) {
+        requestsContainer.innerHTML = `<p class="error-message">${error.message || "Error de conexión."}</p>`;
+    }
+}
+
+// NUEVA FUNCIONALIDAD: Aceptar una solicitud
+async function acceptRequest(tutoriaId) {
+    try {
+        // Necesitamos una ruta en el backend para aceptar, ej: /api/tutorias/:id/accept
+        const response = await fetch(`${API_URL}/tutorias/${tutoriaId}/accept`, {
+            method: 'PUT',
+            credentials: 'include'
+        });
+        const result = await response.json();
+        if (!response.ok) throw new Error(result.msg);
+        
+        alert('¡Tutoría aceptada! El estudiante será notificado.');
+        loadStudentRequests(); // Recargamos la lista
+    } catch (error) {
+        alert(`Error al aceptar la tutoría: ${error.message}`);
+    }
+}
+
+// Botón de Logout
 document.getElementById("logout-button").addEventListener("click", async () => {
   try {
-    await fetch(`${API_URL}/logout`, {
-      method: "POST",
-      credentials: "include",
-    });
-    window.location.href = "index.html"; // Redirigir al login al cerrar sesión
+    await fetch(`${API_URL}/logout`, { method: "POST", credentials: "include" });
+    localStorage.removeItem('userData');
+    window.location.href = "index.html";
   } catch (error) {
     console.error("Error al cerrar sesión:", error);
   }

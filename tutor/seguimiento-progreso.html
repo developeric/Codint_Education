@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seguimiento de Progreso | Plataforma de Tutoría Inteligente</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="styles/tutor-dashboard.css">
+    <link rel="stylesheet" href="styles/seguimiento-progreso.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar de navegación -->
+        <nav class="sidebar">
+            <div class="logo">
+                <img src="../assets/logo.svg" alt="Logo de la plataforma">
+                <h2>EduTutor</h2>
+            </div>
+            <ul class="nav-links">
+                <li><a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                <li><a href="estudiantes.html"><i class="fas fa-user-graduate"></i> Mis Estudiantes</a></li>
+                <li class="active"><a href="seguimiento-progreso.html"><i class="fas fa-chart-line"></i> Seguimiento</a></li>
+                <li><a href="sesiones.html"><i class="fas fa-calendar-alt"></i> Sesiones</a></li>
+                <li><a href="recursos.html"><i class="fas fa-book"></i> Recursos</a></li>
+                <li><a href="mensajes.html"><i class="fas fa-comments"></i> Mensajes</a></li>
+                <li><a href="perfil.html"><i class="fas fa-user-circle"></i> Mi Perfil</a></li>
+            </ul>
+            <div class="logout">
+                <a href="../index.html"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
+            </div>
+        </nav>
+
+        <!-- Contenido principal -->
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Buscar estudiantes, recursos...">
+                </div>
+                <div class="user-info">
+                    <div class="notifications">
+                        <i class="fas fa-bell"></i>
+                        <span class="badge">3</span>
+                    </div>
+                    <div class="profile">
+                        <img src="../assets/profile-placeholder.jpg" alt="Foto de perfil">
+                        <span>Profesor García</span>
+                    </div>
+                </div>
+            </header>
+
+            <div class="progress-tracking-content">
+                <h1>Seguimiento de Progreso de Estudiantes</h1>
+                
+                <div class="student-selector">
+                    <label for="student-select">Seleccionar estudiante:</label>
+                    <select id="student-select">
+                        <option value="">Todos los estudiantes</option>
+                        <option value="1">Laura Gómez</option>
+                        <option value="2">Pedro Ramírez</option>
+                        <option value="3">Sofía Torres</option>
+                        <option value="4">Miguel Ángel Pérez</option>
+                        <option value="5">Ana Martínez</option>
+                    </select>
+                    <button id="view-student-btn" class="btn-primary"><i class="fas fa-eye"></i> Ver Perfil</button>
+                </div>
+                
+                <div class="filters">
+                    <div class="filter-group">
+                        <label for="subject-filter">Asignatura:</label>
+                        <select id="subject-filter">
+                            <option value="">Todas</option>
+                            <option value="matematicas">Matemáticas</option>
+                            <option value="fisica">Física</option>
+                            <option value="quimica">Química</option>
+                            <option value="programacion">Programación</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="period-filter">Período:</label>
+                        <select id="period-filter">
+                            <option value="week">Última semana</option>
+                            <option value="month" selected>Último mes</option>
+                            <option value="trimester">Último trimestre</option>
+                            <option value="year">Último año</option>
+                        </select>
+                    </div>
+                    <button id="apply-filters-btn" class="btn-secondary"><i class="fas fa-filter"></i> Aplicar filtros</button>
+                </div>
+                
+                <div class="progress-dashboard">
+                    <!-- Resumen general -->
+                    <div class="progress-card summary">
+                        <h2>Resumen General</h2>
+                        <div class="summary-stats">
+                            <div class="stat-item">
+                                <div class="stat-value">85%</div>
+                                <div class="stat-label">Promedio de asistencia</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">7.8</div>
+                                <div class="stat-label">Calificación media</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">12</div>
+                                <div class="stat-label">Sesiones completadas</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">3</div>
+                                <div class="stat-label">Estudiantes en riesgo</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Gráfico de progreso -->
+                    <div class="progress-card chart">
+                        <h2>Evolución del Rendimiento</h2>
+                        <div class="chart-container">
+                            <canvas id="performance-chart"></canvas>
+                        </div>
+                        <div class="chart-legend">
+                            <div class="legend-item">
+                                <span class="legend-color" style="background-color: rgba(75, 192, 192, 0.6);"></span>
+                                <span class="legend-label">Matemáticas</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-color" style="background-color: rgba(255, 99, 132, 0.6);"></span>
+                                <span class="legend-label">Física</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-color" style="background-color: rgba(54, 162, 235, 0.6);"></span>
+                                <span class="legend-label">Programación</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Áreas de mejora -->
+                    <div class="progress-card improvement-areas">
+                        <h2>Áreas de Mejora</h2>
+                        <div class="improvement-list">
+                            <div class="improvement-item">
+                                <div class="improvement-header">
+                                    <h3>Álgebra Lineal</h3>
+                                    <span class="priority high">Alta prioridad</span>
+                                </div>
+                                <div class="improvement-progress">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 35%;"></div>
+                                    </div>
+                                    <span class="progress-value">35%</span>
+                                </div>
+                                <p>Dificultades con matrices y sistemas de ecuaciones lineales.</p>
+                                <div class="recommendation">
+                                    <h4><i class="fas fa-lightbulb"></i> Recomendación:</h4>
+                                    <p>Reforzar con ejercicios prácticos y visualizaciones gráficas de conceptos abstractos.</p>
+                                    <button class="btn-secondary resource-btn"><i class="fas fa-plus"></i> Asignar recursos</button>
+                                </div>
+                            </div>
+                            <div class="improvement-item">
+                                <div class="improvement-header">
+                                    <h3>Cinemática</h3>
+                                    <span class="priority medium">Media prioridad</span>
+                                </div>
+                                <div class="improvement-progress">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 60%;"></div>
+                                    </div>
+                                    <span class="progress-value">60%</span>
+                                </div>
+                                <p>Confusión en problemas de movimiento relativo y aceleración variable.</p>
+                                <div class="recommendation">
+                                    <h4><i class="fas fa-lightbulb"></i> Recomendación:</h4>
+                                    <p>Utilizar simulaciones interactivas y problemas contextualizados en situaciones reales.</p>
+                                    <button class="btn-secondary resource-btn"><i class="fas fa-plus"></i> Asignar recursos</button>
+                                </div>
+                            </div>
+                            <div class="improvement-item">
+                                <div class="improvement-header">
+                                    <h3>Estructuras de Datos</h3>
+                                    <span class="priority low">Baja prioridad</span>
+                                </div>
+                                <div class="improvement-progress">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 75%;"></div>
+                                    </div>
+                                    <span class="progress-value">75%</span>
+                                </div>
+                                <p>Dificultad para implementar árboles binarios y algoritmos de ordenamiento avanzados.</p>
+                                <div class="recommendation">
+                                    <h4><i class="fas fa-lightbulb"></i> Recomendación:</h4>
+                                    <p>Proporcionar ejemplos de código paso a paso y ejercicios de complejidad incremental.</p>
+                                    <button class="btn-secondary resource-btn"><i class="fas fa-plus"></i> Asignar recursos</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Actividades recientes -->
+                    <div class="progress-card recent-activities">
+                        <h2>Actividades Recientes</h2>
+                        <div class="activity-list">
+                            <div class="activity-item">
+                                <div class="activity-icon completed">
+                                    <i class="fas fa-check-circle"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <h3>Examen de Cálculo Diferencial</h3>
+                                    <p>Laura Gómez completó el examen con una calificación de 8.5/10</p>
+                                    <span class="activity-date">Hace 2 días</span>
+                                </div>
+                                <div class="activity-actions">
+                                    <button class="btn-icon"><i class="fas fa-eye"></i></button>
+                                    <button class="btn-icon"><i class="fas fa-comment"></i></button>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-icon pending">
+                                    <i class="fas fa-clock"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <h3>Tarea de Física Mecánica</h3>
+                                    <p>Pedro Ramírez tiene una tarea pendiente que vence en 2 días</p>
+                                    <span class="activity-date">Asignada hace 5 días</span>
+                                </div>
+                                <div class="activity-actions">
+                                    <button class="btn-icon"><i class="fas fa-eye"></i></button>
+                                    <button class="btn-icon"><i class="fas fa-bell"></i></button>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-icon missed">
+                                    <i class="fas fa-times-circle"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <h3>Sesión de tutoría programada</h3>
+                                    <p>Miguel Ángel Pérez no asistió a la sesión programada</p>
+                                    <span class="activity-date">Ayer</span>
+                                </div>
+                                <div class="activity-actions">
+                                    <button class="btn-icon"><i class="fas fa-calendar"></i></button>
+                                    <button class="btn-icon"><i class="fas fa-envelope"></i></button>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-icon feedback">
+                                    <i class="fas fa-comment-alt"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <h3>Retroalimentación enviada</h3>
+                                    <p>Has enviado retroalimentación sobre el proyecto de Sofía Torres</p>
+                                    <span class="activity-date">Hace 3 días</span>
+                                </div>
+                                <div class="activity-actions">
+                                    <button class="btn-icon"><i class="fas fa-eye"></i></button>
+                                    <button class="btn-icon"><i class="fas fa-edit"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="view-all">
+                            <button class="btn-secondary">Ver todas las actividades</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Plan de estudio personalizado -->
+                    <div class="progress-card study-plan">
+                        <div class="card-header">
+                            <h2>Plan de Estudio Personalizado</h2>
+                            <button class="btn-secondary" id="generate-plan-btn"><i class="fas fa-magic"></i> Generar plan</button>
+                        </div>
+                        <div class="study-plan-container">
+                            <div class="plan-student-selector">
+                                <label for="plan-student">Estudiante:</label>
+                                <select id="plan-student">
+                                    <option value="1">Laura Gómez</option>
+                                    <option value="2">Pedro Ramírez</option>
+                                    <option value="3">Sofía Torres</option>
+                                    <option value="4">Miguel Ángel Pérez</option>
+                                    <option value="5">Ana Martínez</option>
+                                </select>
+                            </div>
+                            <div class="plan-subject-selector">
+                                <label for="plan-subject">Asignatura:</label>
+                                <select id="plan-subject">
+                                    <option value="matematicas">Matemáticas</option>
+                                    <option value="fisica">Física</option>
+                                    <option value="quimica">Química</option>
+                                    <option value="programacion">Programación</option>
+                                </select>
+                            </div>
+                            <div class="plan-duration-selector">
+                                <label for="plan-duration">Duración:</label>
+                                <select id="plan-duration">
+                                    <option value="2-weeks">2 semanas</option>
+                                    <option value="1-month" selected>1 mes</option>
+                                    <option value="3-months">3 meses</option>
+                                </select>
+                            </div>
+                            
+                            <div class="plan-timeline">
+                                <div class="timeline-header">
+                                    <h3>Plan de Estudio: Matemáticas - Laura Gómez</h3>
+                                    <span class="plan-date">15 de junio - 15 de julio, 2023</span>
+                                </div>
+                                <div class="timeline-weeks">
+                                    <div class="timeline-week">
+                                        <div class="week-header">
+                                            <h4>Semana 1</h4>
+                                            <span class="week-dates">15 - 21 de junio</span>
+                                        </div>
+                                        <div class="week-activities">
+                                            <div class="plan-activity">
+                                                <div class="activity-type lesson">
+                                                    <i class="fas fa-book"></i>
+                                                </div>
+                                                <div class="activity-details">
+                                                    <h5>Fundamentos de Álgebra Lineal</h5>
+                                                    <p>Repaso de conceptos básicos y operaciones con matrices</p>
+                                                    <div class="activity-resources">
+                                                        <a href="#" class="resource"><i class="fas fa-file-pdf"></i> Material de lectura</a>
+                                                        <a href="#" class="resource"><i class="fas fa-video"></i> Video explicativo</a>
+                                                    </div>
+                                                </div>
+                                                <div class="activity-status">
+                                                    <span class="status pending">Pendiente</span>
+                                                </div>
+                                            </div>
+                                            <div class="plan-activity">
+                                                <div class="activity-type exercise">
+                                                    <i class="fas fa-tasks"></i>
+                                                </div>
+                                                <div class="activity-details">
+                                                    <h5>Ejercicios prácticos</h5>
+                                                    <p>Serie de ejercicios sobre operaciones con matrices</p>
+                                                    <div class="activity-resources">
+                                                        <a href="#" class="resource"><i class="fas fa-file-alt"></i> Hoja de ejercicios</a>
+                                                    </div>
+                                                </div>
+                                                <div class="activity-status">
+                                                    <span class="status pending">Pendiente</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline-week">
+                                        <div class="week-header">
+                                            <h4>Semana 2</h4>
+                                            <span class="week-dates">22 - 28 de junio</span>
+                                        </div>
+                                        <div class="week-activities">
+                                            <div class="plan-activity">
+                                                <div class="activity-type lesson">
+                                                    <i class="fas fa-book"></i>
+                                                </div>
+                                                <div class="activity-details">
+                                                    <h5>Sistemas de ecuaciones lineales</h5>
+                                                    <p>Métodos de resolución y aplicaciones prácticas</p>
+                                                    <div class="activity-resources">
+                                                        <a href="#" class="resource"><i class="fas fa-file-pdf"></i> Material de lectura</a>
+                                                        <a href="#" class="resource"><i class="fas fa-video"></i> Video explicativo</a>
+                                                    </div>
+                                                </div>
+                                                <div class="activity-status">
+                                                    <span class="status pending">Pendiente</span>
+                                                </div>
+                                            </div>
+                                            <div class="plan-activity">
+                                                <div class="activity-type quiz">
+                                                    <i class="fas fa-question-circle"></i>
+                                                </div>
+                                                <div class="activity-details">
+                                                    <h5>Cuestionario de evaluación</h5>
+                                                    <p>Evaluación de conocimientos sobre matrices y sistemas de ecuaciones</p>
+                                                </div>
+                                                <div class="activity-status">
+                                                    <span class="status pending">Pendiente</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Más semanas aquí -->
+                                </div>
+                                <div class="plan-actions">
+                                    <button class="btn-primary"><i class="fas fa-save"></i> Guardar plan</button>
+                                    <button class="btn-secondary"><i class="fas fa-share"></i> Compartir con estudiante</button>
+                                    <button class="btn-secondary"><i class="fas fa-edit"></i> Editar plan</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Recomendaciones de recursos -->
+                    <div class="progress-card resource-recommendations">
+                        <h2>Recomendaciones de Recursos</h2>
+                        <div class="resource-filters">
+                            <div class="filter-pills">
+                                <span class="filter-pill active">Todos</span>
+                                <span class="filter-pill">Videos</span>
+                                <span class="filter-pill">Lecturas</span>
+                                <span class="filter-pill">Ejercicios</span>
+                                <span class="filter-pill">Herramientas</span>
+                            </div>
+                        </div>
+                        <div class="resources-grid">
+                            <div class="resource-card">
+                                <div class="resource-type video">
+                                    <i class="fas fa-video"></i>
+                                </div>
+                                <div class="resource-content">
+                                    <h3>Visualización de Matrices y Transformaciones Lineales</h3>
+                                    <p>Serie de videos que explican visualmente los conceptos de álgebra lineal</p>
+                                    <div class="resource-meta">
+                                        <span><i class="fas fa-clock"></i> 45 min</span>
+                                        <span><i class="fas fa-star"></i> 4.8/5</span>
+                                    </div>
+                                </div>
+                                <div class="resource-actions">
+                                    <button class="btn-secondary"><i class="fas fa-share"></i> Asignar</button>
+                                    <button class="btn-icon"><i class="fas fa-eye"></i></button>
+                                </div>
+                            </div>
+                            <div class="resource-card">
+                                <div class="resource-type reading">
+                                    <i class="fas fa-book"></i>
+                                </div>
+                                <div class="resource-content">
+                                    <h3>Guía Práctica de Cinemática</h3>
+                                    <p>Material de lectura con ejemplos resueltos paso a paso</p>
+                                    <div class="resource-meta">
+                                        <span><i class="fas fa-file-alt"></i> PDF</span>
+                                        <span><i class="fas fa-star"></i> 4.5/5</span>
+                                    </div>
+                                </div>
+                                <div class="resource-actions">
+                                    <button class="btn-secondary"><i class="fas fa-share"></i> Asignar</button>
+                                    <button class="btn-icon"><i class="fas fa-eye"></i></button>
+                                </div>
+                            </div>
+                            <div class="resource-card">
+                                <div class="resource-type exercise">
+                                    <i class="fas fa-tasks"></i>
+                                </div>
+                                <div class="resource-content">
+                                    <h3>Ejercicios Interactivos de Estructuras de Datos</h3>
+                                    <p>Plataforma con ejercicios prácticos y retroalimentación inmediata</p>
+                                    <div class="resource-meta">
+                                        <span><i class="fas fa-code"></i> Interactivo</span>
+                                        <span><i class="fas fa-star"></i> 4.7/5</span>
+                                    </div>
+                                </div>
+                                <div class="resource-actions">
+                                    <button class="btn-secondary"><i class="fas fa-share"></i> Asignar</button>
+                                    <button class="btn-icon"><i class="fas fa-eye"></i></button>
+                                </div>
+                            </div>
+                            <div class="resource-card">
+                                <div class="resource-type tool">
+                                    <i class="fas fa-tools"></i>
+                                </div>
+                                <div class="resource-content">
+                                    <h3>Simulador de Física</h3>
+                                    <p>Herramienta interactiva para visualizar conceptos de física mecánica</p>
+                                    <div class="resource-meta">
+                                        <span><i class="fas fa-desktop"></i> Aplicación web</span>
+                                        <span><i class="fas fa-star"></i> 4.9/5</span>
+                                    </div>
+                                </div>
+                                <div class="resource-actions">
+                                    <button class="btn-secondary"><i class="fas fa-share"></i> Asignar</button>
+                                    <button class="btn-icon"><i class="fas fa-eye"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="view-all">
+                            <button class="btn-secondary">Ver todos los recursos</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/seguimiento-progreso.js"></script>
+</body>
+</html>
