@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Métodos de Estudio - Tutor</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <link rel="stylesheet" href="css/tutor_base.css" />
+  <link rel="stylesheet" href="css/tutor_views.css" />
+  <link rel="stylesheet" href="css/tutor_nav_footer.css" />
+</head>
+<body>
+  <!-- Navbar superior -->
+  <header class="navbar">
+    <div class="navbar-inner">
+      <img src="imgs/logo.png" alt="Codin't" class="brand-logo" style="height:130px; width:auto;" />
+      <div class="search">
+        <input type="text" class="form-control" placeholder="Buscar...">
+        <button class="btn-search"><i class="fas fa-search"></i></button>
+      </div>
+      <div class="nav-actions">
+        <a href="tutor_configuracion.html" class="action-item"><i class="fas fa-user"></i><span>Mi Perfil</span></a>
+        <a href="tutor_mensajes.html" class="action-item"><i class="fas fa-envelope"></i></a>
+      </div>
+    </div>
+  </header>
+  <!-- Navbar secundaria -->
+  <nav class="navbar-secondary">
+    <div class="nav-inner">
+      <a class="nav-link" href="tutor_principal.html">Inicio</a>
+      <a class="nav-link" href="tutor_dashboard.html">Dashboard</a>
+      <a class="nav-link" href="tutor_cursos.html">Cursos</a>
+      <a class="nav-link active" href="tutor_metodos_estudio.html">Métodos</a>
+      <a class="nav-link" href="tutor_mensajes.html">Mensajes</a>
+      <a class="nav-link" href="tutor_configuracion.html">Configuración</a>
+    </div>
+  </nav>
+
+  <div class="main-container">
+    <div class="left-panel" style="flex: 1 1 100%">
+      <h1>Métodos de Estudio</h1>
+      <p class="description">Comparte y organiza estrategias para tus estudiantes.</p>
+
+      <div class="methods-grid">
+        <div class="method-card card-dark">
+          <div class="card-header"><h3>Pomodoro</h3></div>
+          <div class="card-body">
+            <p class="muted">Bloques de 25 minutos con descansos, ideal para mantener concentración.</p>
+            <button class="btn btn-outline">Ver detalles</button>
+          </div>
+        </div>
+        <div class="method-card card-dark">
+          <div class="card-header"><h3>Mapa Mental</h3></div>
+          <div class="card-body">
+            <p class="muted">Organiza conceptos en esquemas para comprender conexiones.</p>
+            <button class="btn btn-outline">Ver detalles</button>
+          </div>
+        </div>
+        <div class="method-card card-dark">
+          <div class="card-header"><h3>Feynman</h3></div>
+          <div class="card-body">
+            <p class="muted">Explica el tema en tus propias palabras y detecta huecos.</p>
+            <button class="btn btn-outline">Ver detalles</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-dark">
+        <div class="card-header"><h3>Crear Método</h3></div>
+        <div class="card-body">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="method-name">Nombre</label>
+              <input id="method-name" class="form-control" placeholder="Ej: Técnica de repetición espaciada" />
+            </div>
+            <div class="form-group" style="flex:2">
+              <label for="method-desc">Descripción</label>
+              <input id="method-desc" class="form-control" placeholder="Explica cómo aplicarlo y cuándo usarlo" />
+            </div>
+          </div>
+          <button class="btn btn-primary">Guardar método</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-bottom">© 2025 Codin't. Todos los derechos reservados.</div>
+  </footer>
+</body>
+</html>

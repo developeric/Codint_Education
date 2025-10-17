@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cursos - Codin't</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <link rel="stylesheet" href="css/tutor_base.css" />
+  <link rel="stylesheet" href="css/tutor_views.css" />
+  <link rel="stylesheet" href="css/tutor_nav_footer.css" />
+</head>
+<body>
+  <header class="navbar">
+    <div class="navbar-inner">
+      <img src="imgs/logo.png" alt="Codin't" class="brand-logo" />
+      <div class="search">
+        <input type="text" class="form-control" placeholder="Buscar cursos...">
+        <button class="btn-search"><i class="fas fa-search"></i></button>
+      </div>
+      <div class="nav-actions">
+        <a href="tutor_configuracion.html" class="action-item"><i class="fas fa-user"></i><span>Mi Perfil</span></a>
+        <a href="#" class="action-item"><i class="fas fa-bell"></i><span class="badge">2</span></a>
+        <a href="tutor_mensajes.html" class="action-item"><i class="fas fa-envelope"></i></a>
+      </div>
+    </div>
+  </header>
+  <nav class="navbar-secondary">
+    <div class="nav-inner">
+      <a class="nav-link" href="tutor_principal.html">Inicio</a>
+      <a class="nav-link" href="tutor_dashboard.html">Dashboard</a>
+      <a class="nav-link active" href="tutor_cursos.html">Cursos</a>
+      <a class="nav-link" href="tutor_metodos_estudio.html">Métodos</a>
+      <a class="nav-link" href="tutor_mensajes.html">Mensajes</a>
+      <a class="nav-link" href="tutor_configuracion.html">Configuración</a>
+    </div>
+  </nav>
+
+  <section class="announcement-bar">
+    <div class="announcement-inner">
+      <i class="fas fa-graduation-cap"></i>
+      <strong>Explora cursos</strong>
+      <span class="muted">Catálogo con énfasis morado y tarjetas más visuales.</span>
+    </div>
+  </section>
+  <div class="quick-actions">
+    <a class="action-chip" href="#"><i class="fas fa-plus"></i> Crear curso</a>
+    <a class="action-chip" href="#"><i class="fas fa-chart-line"></i> Estadísticas</a>
+    <a class="action-chip" href="#"><i class="fas fa-tags"></i> Categorías</a>
+  </div>
+
+  <div class="main-container single">
+    <div class="left-panel centered">
+      <h1>Cursos</h1>
+      <p class="description">Administra y descubre cursos de Codin't con una interface más viva.</p>
+
+      <div class="cards-grid">
+        <div class="course-card">
+          <img src="imgs/cover_html.jpg" alt="HTML" class="course-cover"/>
+          <div class="course-info">
+            <h3>HTML desde cero</h3>
+            <p>Aprende estructura y semántica web.</p>
+            <div class="course-meta">
+              <span><i class="far fa-clock"></i> 6h</span>
+              <span><i class="fas fa-signal"></i> Básico</span>
+            </div>
+            <div class="course-actions">
+              <button class="btn btn-outline">Vista previa</button>
+              <button class="btn btn-primary">Inscribirse</button>
+            </div>
+          </div>
+        </div>
+        <div class="course-card">
+          <img src="imgs/cover_css.jpg" alt="CSS" class="course-cover"/>
+          <div class="course-info">
+            <h3>CSS Moderno</h3>
+            <p>Flexbox, Grid y responsividad.</p>
+            <div class="course-meta">
+              <span><i class="far fa-clock"></i> 8h</span>
+              <span><i class="fas fa-signal"></i> Intermedio</span>
+            </div>
+            <div class="course-actions">
+              <button class="btn btn-outline">Vista previa</button>
+              <button class="btn btn-primary">Inscribirse</button>
+            </div>
+          </div>
+        </div>
+        <div class="course-card">
+          <img src="imgs/cover_python.jpg" alt="Python" class="course-cover"/>
+          <div class="course-info">
+            <h3>Python Práctico</h3>
+            <p>Automatización y scripts útiles.</p>
+            <div class="course-meta">
+              <span><i class="far fa-clock"></i> 10h</span>
+              <span><i class="fas fa-signal"></i> Intermedio</span>
+            </div>
+            <div class="course-actions">
+              <button class="btn btn-outline">Vista previa</button>
+              <button class="btn btn-primary">Inscribirse</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div>
+        <img src="imgs/logo.png" alt="Codin't" class="brand-logo" />
+        <p class="description">Tu plataforma de tutoría sostenible.</p>
+      </div>
+      <div>
+        <h4>Navegación</h4>
+        <ul class="link-list">
+          <li><a href="tutor_principal.html">Inicio</a></li>
+          <li><a href="tutor_cursos.html">Cursos</a></li>
+          <li><a href="tutor_metodos_estudio.html">Métodos</a></li>
+          <li><a href="tutor_dashboard.html">Dashboard</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Mi Cuenta</h4>
+        <ul class="link-list">
+          <li><a href="tutor_configuracion.html">Mi Perfil</a></li>
+          <li><a href="tutor_mensajes.html">Mis Mensajes</a></li>
+          <li><a href="tutor_principal.html">Mis Reservas</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contacto</h4>
+        <p><i class="fas fa-envelope"></i> info@codint.com</p>
+        <p><i class="fas fa-phone"></i> +54 9 11 5555-5555</p>
+        <p><i class="fas fa-map-marker-alt"></i> Av. Principal 123, Ciudad</p>
+        <h4>Síguenos</h4>
+        <div class="social">
+          <a class="icon" href="#"><i class="fab fa-facebook-f"></i></a>
+          <a class="icon" href="#"><i class="fab fa-instagram"></i></a>
+          <a class="icon" href="#"><i class="fab fa-twitter"></i></a>
+          <a class="icon" href="#"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2025 Codin't . Todos los derechos reservados.</div>
+  </footer>
+</body>
+</html>

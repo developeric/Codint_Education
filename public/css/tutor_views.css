@@ -1,0 +1,138 @@
+/* Shared components for Tutor views (dark theme) */
+
+/* Card */
+.card-dark {
+  background-color: #242a3f;
+  border: 1px solid #3a3f55;
+  border-radius: 12px;
+  padding: 20px;
+  color: #fff;
+  margin-bottom: 20px;
+}
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+.card-body { color: #c7c7c7; }
+.card-header h3 { margin: 0; }
+
+/* Stats */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  margin-bottom: 20px;
+}
+.stat-card {
+  background: linear-gradient(45deg, #2a2f45, #1e2235);
+  border-radius: 12px;
+  padding: 20px;
+  border: 1px solid #3a3f55;
+}
+.stat-title { color: #a0a0a0; font-size: 0.85rem; }
+.stat-value { font-size: 1.6rem; font-weight: 600; color: #fff; }
+
+/* List */
+.list-item-dark {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid #3a3f55;
+}
+.list-item-dark:last-child { border-bottom: none; }
+.item-title { color: #e5e5f7; font-weight: 500; }
+.item-sub { color: #a0a0a0; font-size: 0.85rem; }
+
+/* Actions */
+.actions {
+  display: flex;
+  gap: 10px;
+}
+
+/* Courses */
+.course-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 20px;
+}
+.course-card {
+  background-color: #242a3f;
+  border: 1px solid #3a3f55;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+.course-card:hover { transform: translateY(-3px); }
+.course-image {
+  height: 140px;
+  background: linear-gradient(45deg, #6c5ce7, #a29bfe);
+}
+.course-content { padding: 16px; }
+.course-title { font-weight: 600; margin-bottom: 6px; }
+.course-meta { color: #a0a0a0; font-size: 0.85rem; margin-bottom: 10px; }
+
+/* Messages */
+.messages-container {
+  display: flex;
+  height: calc(100vh - 160px);
+  background-color: #1e2235;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+}
+.contacts-list {
+  width: 300px;
+  border-right: 1px solid #3a3f55;
+  overflow-y: auto;
+}
+.contacts-header { padding: 16px; border-bottom: 1px solid #3a3f55; }
+.search-box { position: relative; }
+.search-box input {
+  width: 100%;
+  padding: 10px 15px;
+  padding-right: 40px;
+}
+.search-box i {
+  position: absolute; right: 15px; top: 50%; transform: translateY(-50%); color: #a0a0a0;
+}
+.contact-item {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  border-bottom: 1px solid #3a3f55;
+  cursor: pointer;
+}
+.contact-item:hover { background-color: #2a2f45; }
+.contact-avatar {
+  width: 40px; height: 40px; border-radius: 50%; background-color: #6c5ce7; display:flex; align-items:center; justify-content:center; font-weight:600; margin-right: 12px;
+}
+.contact-info { flex: 1; }
+.contact-name { font-weight: 600; color: #fff; }
+.contact-preview { font-size: 0.85rem; color: #a0a0a0; }
+
+.chat-area { flex: 1; display: flex; flex-direction: column; }
+.chat-header { padding: 16px; border-bottom: 1px solid #3a3f55; display:flex; align-items:center; gap:12px; }
+.chat-messages { flex: 1; padding: 16px; overflow-y:auto; background-color:#192032; }
+.message { max-width: 70%; margin-bottom: 16px; }
+.message .bubble { padding: 10px 14px; border-radius: 16px; }
+.message.sent { margin-left: auto; text-align:right; }
+.message.sent .bubble { background-color: #6c5ce7; color: #fff; border-top-right-radius: 4px; }
+.message.received .bubble { background-color: #2a2f45; border: 1px solid #3a3f55; color: #e5e5f7; border-top-left-radius: 4px; }
+.message-time { font-size: 0.75rem; color: #a0a0a0; margin-top: 6px; }
+
+.chat-input { padding: 14px 16px; border-top: 1px solid #3a3f55; display:flex; gap: 10px; align-items:center; }
+.chat-input input { flex: 1; }
+.chat-input button { width: 44px; height: 44px; border-radius: 50%; }
+
+/* Utilities */
+.muted { color: #a0a0a0; }
+.small { font-size: 0.85rem; }
+.spaced { margin-top: 16px; }
+
+@media (max-width: 768px) {
+  .messages-container { flex-direction: column; height: auto; }
+  .contacts-list { width: 100%; height: 300px; }
+}

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard Tutor - Codin't</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <link rel="stylesheet" href="css/tutor_base.css" />
+  <link rel="stylesheet" href="css/tutor_views.css" />
+  <link rel="stylesheet" href="css/tutor_nav_footer.css" />
+</head>
+<body>
+  <!-- Navbar superior -->
+  <header class="navbar">
+    <div class="navbar-inner">
+      <img src="imgs/logo.png" alt="Codin't" class="brand-logo" />
+      <div class="search">
+        <input type="text" class="form-control" placeholder="Buscar...">
+        <button class="btn-search"><i class="fas fa-search"></i></button>
+      </div>
+      <div class="nav-actions">
+        <a href="tutor_configuracion.html" class="action-item"><i class="fas fa-user"></i><span>Mi Perfil</span></a>
+        <a href="#" class="action-item"><i class="fas fa-bell"></i><span class="badge">5</span></a>
+        <a href="tutor_mensajes.html" class="action-item"><i class="fas fa-envelope"></i></a>
+      </div>
+    </div>
+  </header>
+  <!-- Navbar secundaria -->
+  <nav class="navbar-secondary">
+    <div class="nav-inner">
+      <a class="nav-link" href="tutor_principal.html">Inicio</a>
+      <a class="nav-link active" href="tutor_dashboard.html">Dashboard</a>
+      <a class="nav-link" href="tutor_cursos.html">Cursos</a>
+      <a class="nav-link" href="tutor_metodos_estudio.html">Métodos</a>
+      <a class="nav-link" href="tutor_mensajes.html">Mensajes</a>
+      <a class="nav-link" href="tutor_configuracion.html">Configuración</a>
+    </div>
+  </nav>
+
+  <!-- Barra anuncio y acciones rápidas -->
+  <section class="announcement-bar">
+    <div class="announcement-inner">
+      <i class="fas fa-bolt"></i>
+      <strong>Panel actualizado</strong>
+      <span class="muted">Acentos morados y detalles en blanco para mayor claridad.</span>
+    </div>
+  </section>
+  <div class="quick-actions">
+    <a class="action-chip" href="tutor_cursos.html"><i class="fas fa-book"></i> Cursos</a>
+    <a class="action-chip" href="tutor_mensajes.html"><i class="fas fa-envelope"></i> Mensajes</a>
+    <a class="action-chip" href="tutor_configuracion.html"><i class="fas fa-user-cog"></i> Perfil</a>
+  </div>
+
+  <div class="main-container single">
+    <div class="left-panel centered">
+      <h1>Dashboard de Tutor</h1>
+      <p class="description">Gestiona tus solicitudes, agenda y cursos impartidos. Todo en un panel con el estilo de Codin't.</p>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-title">Solicitudes nuevas</div>
+          <div class="stat-value">5</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-title">Clases próximas</div>
+          <div class="stat-value">3</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-title">Ingresos estimados</div>
+          <div class="stat-value">$180</div>
+        </div>
+      </div>
+
+      <div class="card-dark">
+        <div class="card-header">
+          <h3>Solicitudes de Clases</h3>
+          <button class="btn btn-outline"><i class="fas fa-filter"></i> Filtrar</button>
+        </div>
+        <div class="card-body">
+          <div class="list-item-dark">
+            <div>
+              <div class="item-title">Juan Pérez</div>
+              <div class="item-sub">Matemáticas • Lunes 16:00</div>
+            </div>
+            <div class="actions">
+              <button class="btn btn-outline">Revisar</button>
+              <button class="btn btn-primary">Aceptar</button>
+            </div>
+          </div>
+          <div class="list-item-dark">
+            <div>
+              <div class="item-title">Ana García</div>
+              <div class="item-sub">Programación • Miércoles 18:00</div>
+            </div>
+            <div class="actions">
+              <button class="btn btn-outline">Revisar</button>
+              <button class="btn btn-primary">Aceptar</button>
+            </div>
+          </div>
+          <div class="list-item-dark">
+            <div>
+              <div class="item-title">Luis Rodríguez</div>
+              <div class="item-sub">Física • Viernes 14:30</div>
+            </div>
+            <div class="actions">
+              <button class="btn btn-outline">Revisar</button>
+              <button class="btn btn-primary">Aceptar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-dark">
+        <div class="card-header">
+          <h3>Agenda Próxima</h3>
+          <button class="btn btn-outline"><i class="fas fa-calendar"></i> Exportar</button>
+        </div>
+        <div class="card-body">
+          <div class="list-item-dark">
+            <div>
+              <div class="item-title">Clase: HTML Básico</div>
+              <div class="item-sub">Mar 10:00 - 11:30</div>
+            </div>
+            <button class="btn btn-primary">Abrir</button>
+          </div>
+          <div class="list-item-dark">
+            <div>
+              <div class="item-title">Clase: Álgebra</div>
+              <div class="item-sub">Mié 16:00 - 17:00</div>
+            </div>
+            <button class="btn btn-primary">Abrir</button>
+          </div>
+          <div class="list-item-dark">
+            <div>
+              <div class="item-title">Clase: Python</div>
+              <div class="item-sub">Jue 18:00 - 19:30</div>
+            </div>
+            <button class="btn btn-primary">Abrir</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div>
+        <img src="imgs/logo.png" alt="Codin't" class="brand-logo" />
+        <p class="description">Tu plataforma de tutoría sostenible.</p>
+      </div>
+      <div>
+        <h4>Navegación</h4>
+        <ul class="link-list">
+          <li><a href="tutor_principal.html">Inicio</a></li>
+          <li><a href="tutor_cursos.html">Cursos</a></li>
+          <li><a href="tutor_metodos_estudio.html">Métodos</a></li>
+          <li><a href="tutor_dashboard.html">Dashboard</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Mi Cuenta</h4>
+        <ul class="link-list">
+          <li><a href="tutor_configuracion.html">Mi Perfil</a></li>
+          <li><a href="tutor_mensajes.html">Mis Mensajes</a></li>
+          <li><a href="tutor_principal.html">Mis Reservas</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contacto</h4>
+        <p><i class="fas fa-envelope"></i> info@codint.com</p>
+        <p><i class="fas fa-phone"></i> +54 9 11 5555-5555</p>
+        <p><i class="fas fa-map-marker-alt"></i> Av. Principal 123, Ciudad</p>
+        <h4>Síguenos</h4>
+        <div class="social">
+          <a class="icon" href="#"><i class="fab fa-facebook-f"></i></a>
+          <a class="icon" href="#"><i class="fab fa-instagram"></i></a>
+          <a class="icon" href="#"><i class="fab fa-twitter"></i></a>
+          <a class="icon" href="#"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2025 Codin't . Todos los derechos reservados.</div>
+  </footer>
+</body>
+</html>

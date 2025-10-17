@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Página Principal - Tutor</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <link rel="stylesheet" href="css/tutor_base.css" />
+  <link rel="stylesheet" href="css/tutor_views.css" />
+  <link rel="stylesheet" href="css/tutor_nav_footer.css" />
+</head>
+<body>
+  <!-- Navbar superior -->
+  <header class="navbar">
+    <div class="navbar-inner">
+      <img src="imgs/logo.png" alt="Codin't" class="brand-logo" style="height:130px; width:auto;" />
+      <div class="search">
+        <input type="text" class="form-control" placeholder="Buscar...">
+        <button class="btn-search"><i class="fas fa-search"></i></button>
+      </div>
+      <div class="nav-actions">
+        <a href="tutor_configuracion.html" class="action-item"><i class="fas fa-user"></i><span>Mi Perfil</span></a>
+        <a href="tutor_mensajes.html" class="action-item"><i class="fas fa-envelope"></i></a>
+      </div>
+    </div>
+  </header>
+  <!-- Navbar secundaria -->
+  <nav class="navbar-secondary">
+    <div class="nav-inner">
+      <a class="nav-link active" href="tutor_principal.html">Inicio</a>
+      <a class="nav-link" href="tutor_dashboard.html">Dashboard</a>
+      <a class="nav-link" href="tutor_cursos.html">Cursos</a>
+      <a class="nav-link" href="tutor_metodos_estudio.html">Métodos</a>
+      <a class="nav-link" href="tutor_mensajes.html">Mensajes</a>
+      <a class="nav-link" href="tutor_configuracion.html">Configuración</a>
+    </div>
+  </nav>
+
+
+  <div class="main-container single">
+    <div class="left-panel centered">
+      <h1>Bienvenido, Tutor</h1>
+      <p class="description">Gestiona tus cursos, clases y comunicación con estudiantes.</p>
+
+      <div class="dashboard-grid" style="display:grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
+        <div class="card-dark">
+          <div class="card-header"><h3>Próximas Clases</h3></div>
+          <div class="card-body">
+            <ul class="simple-list">
+              <li class="list-item">
+                <div>Matemáticas • 16:00</div>
+                <div class="muted">Con: Juan Pérez</div>
+              </li>
+              <li class="list-item">
+                <div>Programación • 18:00</div>
+                <div class="muted">Con: Ana García</div>
+              </li>
+            </ul>
+            <button class="btn btn-outline">Ver agenda</button>
+          </div>
+        </div>
+        <div class="card-dark">
+          <div class="card-header"><h3>Solicitudes</h3></div>
+          <div class="card-body">
+            <ul class="simple-list">
+              <li class="list-item">
+                <div>Clase de Física</div>
+                <div class="muted">Estudiante: Luis</div>
+              </li>
+              <li class="list-item">
+                <div>Clase de Álgebra</div>
+                <div class="muted">Estudiante: María</div>
+              </li>
+            </ul>
+            <button class="btn btn-primary">Gestionar</button>
+          </div>
+        </div>
+        <div class="card-dark">
+          <div class="card-header"><h3>Mensajes</h3></div>
+          <div class="card-body">
+            <p class="muted">Tienes 3 mensajes sin leer.</p>
+            <a href="tutor_mensajes.html" class="btn btn-outline">Abrir bandeja</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-bottom">© 2025 Codin't . Todos los derechos reservados.</div>
+  </footer>
+</body>
+</html>
