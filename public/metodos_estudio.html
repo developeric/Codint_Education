@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Métodos de Estudio - Codint Education</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <link rel="stylesheet" href="css/base_dashboard.css" />
+    <link rel="stylesheet" href="css/metodos_estudio_styles.css" />
+  </head>
+  <body>
+    <div class="sidebar">
+      <div class="sidebar-header">
+        <div class="logo">Codint Education</div>
+      </div>
+
+      <div class="sidebar-menu">
+        <ul>
+          <li>
+            <a href="dashboard.html"
+              ><i class="fas fa-home"></i> <span>Dashboard</span></a
+            >
+          </li>
+          <li>
+            <a href="cursos.html"
+              ><i class="fas fa-book"></i> <span>Mis Cursos</span></a
+            >
+          </li>
+          <li>
+            <a href="metodos_estudio.html"
+              ><i class="fas fa-brain"></i>
+              <span>Métodos de Estudio Recomendado</span></a
+            >
+          </li>
+          <li>
+            <a href="mensajes.html"
+              ><i class="fas fa-comment"></i> <span>Mensajes</span></a
+            >
+          </li>
+          <li>
+            <a href="configuracion.html"
+              ><i class="fas fa-cog"></i> <span>Configuración</span></a
+            >
+          </li>
+        </ul>
+      </div>
+
+      <div class="user-profile">
+        <div class="user-avatar" id="sidebar-user-avatar"></div>
+        <div class="user-info">
+          <h4 id="sidebar-user-name">Cargando...</h4>
+          <p id="sidebar-user-role"></p>
+        </div>
+        <button class="logout-btn" id="logout-button" title="Cerrar sesión">
+          <i class="fas fa-sign-out-alt"></i>
+        </button>
+      </div>
+    </div>
+
+    <div class="main-content">
+      <div class="page-header animate-fade-in">
+        <h1>Métodos de Estudio</h1>
+        <div class="breadcrumb">
+          <span>Inicio</span>
+          <i class="fas fa-chevron-right"></i>
+          <span>Métodos de Estudio</span>
+        </div>
+      </div>
+
+      <div
+        class="methods-container animate-fade-in"
+        style="animation-delay: 0.1s"
+      >
+        <div class="card pomodoro-card">
+          <div class="card-header">
+            <h3>Método Pomodoro</h3>
+            <i class="fas fa-hourglass-half pomodoro-icon"></i>
+          </div>
+          <div class="card-body">
+            <p class="pomodoro-desc">
+              Trabaja en bloques intensos de 25 minutos, seguidos de 5 minutos
+              de descanso. ¡Máxima concentración!
+            </p>
+
+            <div class="pomodoro-timer">
+              <div id="timer-display" class="timer-display">25:00</div>
+              <div class="timer-status" id="timer-status">
+                Tiempo de Estudio
+              </div>
+            </div>
+
+            <div class="pomodoro-controls">
+              <button id="start-button" class="btn btn-primary">
+                <i class="fas fa-play"></i> Iniciar
+              </button>
+              <button id="pause-button" class="btn btn-outline" disabled>
+                <i class="fas fa-pause"></i> Pausar
+              </button>
+              <button id="reset-button" class="btn btn-outline">
+                <i class="fas fa-redo"></i> Reiniciar
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card other-method-card">
+          <div class="card-header">
+            <h3>Otras Técnicas</h3>
+          </div>
+          <div class="card-body">
+            <p class="gray-color">
+              Próximamente: Mapas Mentales, Técnica Feynman y más.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="main-content" id="main-content">
+      <div class="fullscreen-header">
+        <button id="toggle-fullscreen-btn" title="Maximizar vista">
+          <i class="fas fa-expand-alt"></i>
+        </button>
+      </div>
+      <div class="card other-method-card">
+        <div class="card-header">
+          <h3>¡Motívate!</h3>
+        </div>
+        <div class="card-body">
+          <p class="gray-color" id="motivational-quote">
+            Cargando frase motivacional...
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <script src="js/metodos_estudios.js"></script>
+  </body>
+</html>

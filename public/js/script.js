@@ -80,17 +80,23 @@ document
         .filter(Boolean);
       const hourlyRate = document.getElementById("register-hourlyRate").value;
       if (hourlyRate) {
-        body.hourlyRate = hourlyRate;
+        body.hourlyRate = parseFloat(hourlyRate);
       }
     }
 
     try {
+      console.log("Enviando datos de registro:", body);
       const response = await fetch(`${API_URL}/register/${body.role}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
+        credentials: "include" // Importante para manejar cookies
       });
+      
+      console.log("Respuesta del servidor:", response);
       const data = await response.json();
+      console.log("Datos recibidos:", data);
+      
       if (response.ok) {
         // Guardar datos del usuario en localStorage para usarlos en dashboard
         localStorage.setItem('userData', JSON.stringify(data.data));
@@ -99,7 +105,7 @@ document
         const firstError = data.errors
           ? Object.values(data.errors)[0].msg
           : data.msg;
-        errorMessage.textContent = firstError || "Error al registrarse.";
+        errorMessage.textContent = firstError || "Error en el registro.";
       }
     } catch (error) {
       errorMessage.textContent = "Error de conexión con el servidor.";
