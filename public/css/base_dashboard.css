@@ -103,7 +103,7 @@ body {
 .user-avatar {
     width: 40px;
     height: 40px;
-    border-radius: 50%;
+    border-radius: 100%;
     background-color: var(--accent-color);
     color: white;
     display: flex;
@@ -298,6 +298,7 @@ textarea.form-control {
 }
 
 .sidebar.collapsed .user-profile {
+    display: none;
     width: calc(100% - 20px);
     padding: 10px;
     justify-content: center; /* Centra el ícono de perfil */
